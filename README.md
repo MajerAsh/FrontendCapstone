@@ -1,67 +1,32 @@
-# Frontend Template
-
-You can use this repository as a template for your frontend. It provides a very simple
-React Router layout with a navbar, an `AuthContext` with login and register pages, and an
-`ApiContext` with two custom hooks: `useQuery` and `useMutation`.
-
-## Usage
-
-1. Change the name of the package in `package.json`. - ✔️
-2. Update the environment variables in `example.env` and rename the file to `.env`. -✔️
-3. Build components and add routes to them in `App.jsx`. -TODO
-
 **[Frontend Repository](https://github.com/MajerAsh/FrontendCapstone)**
 
-This is the frontend repository for **MycoMap**, a full-stack mushroom foraging app where users can log, explore, and discover mushroom finds on an interactive world map.
+MycoMap FrontendCapstone
 
-## Overview
+This is the frontend repository for MycoMap, a full-stack mushroom foraging platform built with React. Users can register, log in, log mushroom finds, and explore foraged mushrooms on an interactive world map.
+The backend API lives in the BackendCapstone repository.
 
-**MycoMap** is a React-based web app that allows users to:
+------- Features:
 
-- Log mushroom finds with descriptions, dates, and photos
-- View their finds on a private map
-- Explore the public map of worldwide finds
-- Search by species or location
-- Discover other foragers and their logs
+- Public map of mushroom finds using Mapbox GL JS.
 
----
+- Filters for species and geographic region.
 
-## Core Features (MVP)
+- Authenticated users can:
+  Register / Log in with JWT.
+  Create mushroom finds with image and location.
+  Edit or delete their finds.
+  Search for foragers and view their public logs.
 
-- Public map of mushroom finds
-- Filter pins by species, city, state, country
-- Register & log in users
-- Create new mushroom finds with image
-- View/edit/delete personal logs
-- Search for other foragers and explore their finds
+-------Technologies:
 
----
+-React (v19)
 
-## Tech Stack
+-React Router
 
-- **React**
-- **React Router**
-- **Mapbox GL JS**
-- **Context API** (for auth)
-- **CSS Flexbox + Grid**
-- **Vite** (build tool)
-- **Axios / Fetch API**
+-Context API
 
----
+-Mapbox GL JS
 
-## Folder Structure
+-Vite (development server & bundler)
 
-```bash
-frontendCapstone/
-├── public/                # Static assets (favicon, images)
-├── src/
-│   ├── components/        # Navbar, Map, Filters, Cards
-│   ├── context/           # Auth and user context
-│   ├── pages/             # Route-based views
-│   ├── hooks/             # Custom hooks (e.g. useFinds)
-│   ├── App.jsx            # App routing
-│   └── main.jsx           # React root
-├── .env                   # Frontend API base URL
-├── index.html
-└── package.json
-```
+-CSS (Flexbox & Grid)
