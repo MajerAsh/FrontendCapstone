@@ -8,6 +8,7 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN; //mapbox API key from 
 export default function Welcome() {
   const mapContainer = useRef(null); //ref to <div> that holds the map
   const map = useRef(null); //store map instance
+  const markers = useRef([]); //holds active markers (incase they need to go)
   const [filter, setFilter] = useState(""); //input text for filtering Finds
   const { data: finds } = useQuery("/finds", "all-finds"); //fetch all finds from API
   const { token } = useAuth(); //get login token(to show user links)
@@ -24,31 +25,26 @@ export default function Welcome() {
     });
   }, []);
 
-  // Add markers when finds load or filter changes
+  // Add MARKERS (not layrs! removed layers) when finds load or filter changes
   useEffect(() => {
-    if (!map.current || !finds) return; //skip if map or data missing
+    if (!map.current || !finds) return;
 
-    //clean up existing layers (old markers)
-    map.current.eachLayer((layer) => {
-      if (layer.type === "symbol" || layer.id.startsWith("find")) {
-        try {
-          map.current.removeLayer(layer.id); //rmv custom layer
-        } catch {}
-      }
-    });
+    //rmv any existing markers (removed layers) from previous render
+    markers.current.forEach((m) => m.remove());
+    markers.current = [];
 
     //loop over filtered finds and add markers
     finds
       .filter(
         (find) =>
           filter === "" || //no filter = show all
-          find.species.toLowerCase().includes(filter.toLowerCase()) ||
+          find.species?.toLowerCase().includes(filter.toLowerCase()) ||
           find.location?.toLowerCase().includes(filter.toLowerCase())
       )
       .forEach((find) => {
         const popupContent = `
-          <strong>${find.species}</strong><br/>
-          ${find.found_date}<br/>
+          <strong>${find.species ?? "Unknown"}</strong><br/>
+          ${find.found_date ?? ""}<br/>
           ${
             token
               ? `<a href="/user/${find.username}/finds">${find.username}</a>`
@@ -56,12 +52,14 @@ export default function Welcome() {
           }
         `; //popup HTML content/show link if logged in ^^
 
-        new mapboxgl.Marker()
+        const marker = new mapboxgl.Marker()
           .setLngLat([find.longitude, find.latitude])
           .setPopup(new mapboxgl.Popup().setHTML(popupContent)) //attach popup
           .addTo(map.current);
+
+        markers.current.push(marker); //push marker to track it/ if it needs to b removed
       });
-  }, [finds, filter]);
+  }, [finds, filter, token]);
 
   return (
     <>
