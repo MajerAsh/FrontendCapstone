@@ -11,9 +11,9 @@ export default function CreateFind() {
     species: "",
     date_found: "",
     description: "",
-    city: "",
-    state: "",
-    country: "",
+    latitude: "",
+    longitude: "",
+    location: "",
   });
 
   //update state when user types in input
@@ -29,10 +29,9 @@ export default function CreateFind() {
       species: formData.species,
       date_found: formData.date_found,
       description: formData.description,
-      location: [formData.city, formData.state, formData.country]
-        .filter(Boolean)
-        .join(", "),
-      // latitude/longitude/image_url can be added later
+      latitude: formData.latitude ? Number(formData.latitude) : null,
+      longitude: formData.longitude ? Number(formData.longitude) : null,
+      location: formData.location || null,
     };
     const success = await mutate(payload);
     if (success) navigate("/my-finds");
@@ -70,19 +69,34 @@ export default function CreateFind() {
           />
         </label>
         <label>
-          City:
-          <input name="city" value={formData.city} onChange={handleChange} />
-        </label>
-        <label>
-          State:
-          <input name="state" value={formData.state} onChange={handleChange} />
-        </label>
-        <label>
-          Country:
+          Latitude:
           <input
-            name="country"
-            value={formData.country}
+            name="latitude"
+            type="number"
+            step="any"
+            value={formData.latitude}
             onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Longitude:
+          <input
+            name="longitude"
+            type="number"
+            step="any"
+            value={formData.longitude}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Location label (optional):
+          <input
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            placeholder="e.g. Eugene, OR trailhead"
           />
         </label>
         <button disabled={loading}>Create Find</button>{" "}

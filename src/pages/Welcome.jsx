@@ -37,9 +37,8 @@ export default function Welcome() {
     finds
       .filter(
         (find) =>
-          filter === "" || //no filter = show all
-          find.species?.toLowerCase().includes(filter.toLowerCase()) ||
-          find.location?.toLowerCase().includes(filter.toLowerCase())
+          filter === "" ||
+          (find.species || "").toLowerCase().includes(filter.toLowerCase())
       )
       .forEach((find) => {
         const popupContent = `
