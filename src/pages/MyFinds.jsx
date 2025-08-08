@@ -6,15 +6,15 @@ export default function MyFinds() {
   const { data: finds, loading, error } = useQuery("/finds/me", "my-finds");
 
   //v sets up mutation to delete a find, invalidates "my-finds" after run
-  const { mutate: deleteFind } = useMutation("DELETE", "/finds", ["my-finds"]);
-
+  const { mutate: deleteFind } = useMutation("DELETE", null, ["my-finds"]);
   //v called when delete btn is clicked
+  //backend expects DELETE /finds/:id  but hook call is DELETE /finds
   async function handleDelete(findId) {
     const confirm = window.confirm(
       "Are you sure you want to delete this find?"
     );
     if (!confirm) return;
-    await deleteFind({ id: findId });
+    await deleteFind(null, `/finds/${findId}`); //hoping useMutation will accept an override URL as a argument 🤞
   }
 
   return (

@@ -43,7 +43,7 @@ export default function Welcome() {
         (find) =>
           filter === "" || //no filter = show all
           find.species.toLowerCase().includes(filter.toLowerCase()) ||
-          find.country.toLowerCase().includes(filter.toLowerCase())
+          find.location?.toLowerCase().includes(filter.toLowerCase())
       )
       .forEach((find) => {
         const popupContent = `
@@ -67,7 +67,7 @@ export default function Welcome() {
     <>
       <h1>Welcome to MycoMap </h1>
       <label>
-        Filter by species or country:
+        Filter by species or location:
         <input
           value={filter}
           onChange={(e) => setFilter(e.target.value)}

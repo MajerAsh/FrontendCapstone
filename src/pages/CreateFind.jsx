@@ -25,7 +25,16 @@ export default function CreateFind() {
   //handle submit event
   async function handleSubmit(e) {
     e.preventDefault();
-    const success = await mutate(formData); //send formData via POST req
+    const payload = {
+      species: formData.species,
+      date_found: formData.date_found,
+      description: formData.description,
+      location: [formData.city, formData.state, formData.country]
+        .filter(Boolean)
+        .join(", "),
+      // latitude/longitude/image_url can be added later
+    };
+    const success = await mutate(payload);
     if (success) navigate("/my-finds");
   }
 
