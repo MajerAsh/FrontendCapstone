@@ -27,7 +27,7 @@ export default function useQuery(resource, tag) {
   useEffect(() => {
     provideTag(tag, query);
     query();
-  }, []);
+  }, [resource]); // FF added
 
   return { data, loading, error };
 }

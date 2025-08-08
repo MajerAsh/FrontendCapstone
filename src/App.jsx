@@ -5,6 +5,8 @@ import Layout from "./layout/Layout";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import CreateFind from "./pages/CreateFind";
+import FindForagers from "./pages/FindForagers";
+import UserPublicFinds from "./pages/UserPublicFinds";
 
 export default function App() {
   return (
@@ -15,7 +17,8 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create" element={<CreateFind />} />
-      </Route>
+         <Route path="/find-foragers" element={<FindForagers />} />
+        <Route path="/user/:username/finds" element={<UserPublicFinds />} />
     </Routes>
   );
 }
