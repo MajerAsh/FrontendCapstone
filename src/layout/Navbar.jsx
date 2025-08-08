@@ -7,7 +7,7 @@ export default function Navbar() {
   return (
     <header id="navbar">
       <NavLink id="brand" to="/">
-        <p>Frontend Template</p>
+        <p>navbar p</p>
       </NavLink>
       <nav>
         {token ? (

@@ -9,7 +9,7 @@ export default function CreateFind() {
   //form data state
   const [formData, setFormData] = useState({
     species: "",
-    found_date: "",
+    date_found: "",
     description: "",
     city: "",
     state: "",
