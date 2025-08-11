@@ -105,7 +105,9 @@ export default function CreateFind() {
         try {
           const label = await reverseGeocode(lng, lat);
           if (label) setFormData((s) => ({ ...s, location: label }));
-        } catch {}
+        } catch {
+          error;
+        }
       },
       (err) => {
         console.error(err);
@@ -176,7 +178,7 @@ export default function CreateFind() {
           />
         </label>
 
-        {/* location inputs (optional) */}
+        {/* location inputs (optional for user) */}
         <div
           style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}
         >

@@ -38,9 +38,14 @@ export default function MyFinds() {
             {find.image_url && (
               <div style={{ margin: "8px 0" }}>
                 <img
-                  src={find.image_url}
-                  alt={`${find.species} photo`}
+                  src={
+                    find.image_url?.startsWith("http")
+                      ? find.image_url
+                      : `${import.meta.env.VITE_API_URL}${find.image_url}`
+                  }
+                  alt={`${find.species ?? "Mushroom"} photo`}
                   style={{ maxWidth: "100%", height: "auto", borderRadius: 8 }}
+                  loading="lazy"
                 />
               </div>
             )}

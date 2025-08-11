@@ -13,7 +13,15 @@ export default function Welcome() {
   const { data: finds } = useQuery("/finds", "all-finds"); //fetch all finds from API
   const { token } = useAuth(); //get login token(to show user links)
 
-  // Initialize the map 1x
+  //helper to make absolute img URLs
+  const imgSrc = (pathOrUrl) => {
+    if (!pathOrUrl) return null;
+    return pathOrUrl.startsWith("http")
+      ? pathOrUrl
+      : `${import.meta.env.VITE_API_URL}${pathOrUrl}`;
+  };
+
+  // Init the map 1x
   useEffect(() => {
     if (map.current) return;
 
@@ -25,11 +33,11 @@ export default function Welcome() {
     });
   }, []);
 
-  // Add MARKERS (not layrs! removed layers) when finds load or filter changes
+  // Add MARKERS when finds load or filter changes
   useEffect(() => {
     if (!map.current || !finds) return;
 
-    //rmv any existing markers (removed layers) from previous render
+    //rmv any existing markersfrom previous render
     markers.current.forEach((m) => m.remove());
     markers.current = [];
 
@@ -46,12 +54,19 @@ export default function Welcome() {
         const popupContent = `
           <strong>${find.species ?? "Unknown"}</strong><br/>
           ${find.date_found ?? ""}<br/>
-          ${
-            token
-              ? `<a href="/user/${find.username}/finds">${find.username}</a>`
-              : ""
-          }
-        `; //popup HTML content/show link if logged in ^^
+         ${
+           find.image_url
+             ? `<div style="margin:8px 0">
+       <img
+         src="${imgSrc(find.image_url)}"
+         alt="${(find.species ?? "Mushroom").replace(/"/g, "&quot;")} photo"
+         style="max-width:100%;height:auto;border-radius:8px"
+       />
+     </div>`
+             : ""
+         }
+  ${token ? `<a href="/users/${find.username}/finds">${find.username}</a>` : ""}
+`; //popup HTML content/show link if logged in ^^
 
         const marker = new mapboxgl.Marker()
           .setLngLat([find.longitude, find.latitude])
