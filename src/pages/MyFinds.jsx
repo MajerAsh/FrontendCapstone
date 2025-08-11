@@ -35,6 +35,15 @@ export default function MyFinds() {
             <p>
               <strong>Description:</strong> {find.description}
             </p>
+            {find.image_url && (
+              <div style={{ margin: "8px 0" }}>
+                <img
+                  src={find.image_url}
+                  alt={`${find.species} photo`}
+                  style={{ maxWidth: "100%", height: "auto", borderRadius: 8 }}
+                />
+              </div>
+            )}
             {/* smart location display */}
             {(() => {
               const hasCoords = find.latitude != null && find.longitude != null;

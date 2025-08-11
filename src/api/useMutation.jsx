@@ -1,15 +1,7 @@
 import { useState } from "react";
 import { useApi } from "./ApiContext";
 
-/**
- * Returns a function to mutate a resource.
- * Usage:
- *   const { mutate } = useMutation("DELETE", "/finds", ["my-finds"]);
- *   await mutate(null, `/finds/${id}`);
- *
- * - body: object | null
- * - overridePath: string | undefined (overrides the resource)
- */
+// mutate(body, overridePath?)
 
 export default function useMutation(method, resource, tagsToInvalidate) {
   const { request, invalidateTags } = useApi();
@@ -23,14 +15,19 @@ export default function useMutation(method, resource, tagsToInvalidate) {
     setError(null);
 
     try {
-      const result = await request(overridePath || resource, {
+      const isFormData = body instanceof FormData;
+      const options = {
         method,
-        // only send a JSON body when provided; otherwise omit
         ...(body !== null && body !== undefined
-          ? { body: JSON.stringify(body) }
+          ? { body: isFormData ? body : JSON.stringify(body) }
           : {}),
-      });
+      };
 
+      const result = await request(
+        overridePath || resource,
+        options,
+        isFormData
+      );
       setData(result);
       invalidateTags?.(tagsToInvalidate || []);
       return true;

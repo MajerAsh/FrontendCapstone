@@ -28,6 +28,17 @@ export default function UserPublicFinds() {
             <p>
               <strong>Description:</strong> {f.description}
             </p>
+            {/* thumb if theres a image_url */}
+            {f.image_url && (
+              <div style={{ margin: "8px 0" }}>
+                <img
+                  src={f.image_url}
+                  alt={`${f.species ?? "Mushroom"} photo`}
+                  style={{ maxWidth: "100%", height: "auto", borderRadius: 8 }}
+                  loading="lazy"
+                />
+              </div>
+            )}
             {f.location && (
               <p>
                 <strong>Location:</strong> {f.location}
