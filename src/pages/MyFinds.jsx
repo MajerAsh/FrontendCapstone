@@ -35,10 +35,26 @@ export default function MyFinds() {
             <p>
               <strong>Description:</strong> {find.description}
             </p>
-            <p>
-              <strong>Location:</strong> {find.city}, {find.state},{" "}
-              {find.country}
-            </p>
+            {/* smart location display */}
+            {(() => {
+              const hasCoords = find.latitude != null && find.longitude != null;
+
+              const coords = hasCoords
+                ? `(${Number(find.latitude).toFixed(5)}, ${Number(
+                    find.longitude
+                  ).toFixed(5)})`
+                : null;
+
+              const label = find.location?.trim();
+
+              const display = label || coords || "Not specified";
+
+              return (
+                <p>
+                  <strong>Location:</strong> {display}
+                </p>
+              );
+            })()}
             <button onClick={() => handleDelete(find.id)}>Delete</button>{" "}
             {/* del btn */}
             <button disabled>Edit</button>
