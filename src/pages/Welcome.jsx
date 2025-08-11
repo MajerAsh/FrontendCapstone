@@ -41,6 +41,8 @@ export default function Welcome() {
           (find.species || "").toLowerCase().includes(filter.toLowerCase())
       )
       .forEach((find) => {
+        if (find.longitude == null || find.latitude == null) return;
+
         const popupContent = `
           <strong>${find.species ?? "Unknown"}</strong><br/>
           ${find.date_found ?? ""}<br/>
