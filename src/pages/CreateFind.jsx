@@ -54,8 +54,8 @@ export default function CreateFind() {
           Date Found:
           <input
             type="date"
-            name="found_date"
-            value={formData.found_date}
+            name="date_found"
+            value={formData.date_found}
             onChange={handleChange}
             required
           />

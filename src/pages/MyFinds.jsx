@@ -30,7 +30,7 @@ export default function MyFinds() {
           <div key={find.id} className="find-card">
             <h2>{find.species}</h2>
             <p>
-              <strong>Date:</strong> {find.found_date}
+              <strong>Date:</strong> {find.date_found}
             </p>
             <p>
               <strong>Description:</strong> {find.description}

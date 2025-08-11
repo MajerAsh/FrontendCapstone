@@ -43,7 +43,7 @@ export default function Welcome() {
       .forEach((find) => {
         const popupContent = `
           <strong>${find.species ?? "Unknown"}</strong><br/>
-          ${find.found_date ?? ""}<br/>
+          ${find.date_found ?? ""}<br/>
           ${
             token
               ? `<a href="/user/${find.username}/finds">${find.username}</a>`
