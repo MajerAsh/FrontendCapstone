@@ -69,7 +69,7 @@ export default function Welcome() {
         //vPOPUP BLOCKv
         const popupContent = `
           <strong>${find.species ?? "Unknown"}</strong><br/>
-          ${find.date_found ?? ""}.slice(0, 10)}<br/>
+          ${find.date_found ?? ""}<br/>
            ${label || coords ? `${label || coords}<br/>` : ""}
          ${
            find.image_url
