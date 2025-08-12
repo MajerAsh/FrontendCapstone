@@ -28,18 +28,18 @@ export default function UserPublicFinds() {
             <p>
               <strong>Description:</strong> {f.description}
             </p>
+
             {/* thumb if theres a image_url */}
             {f.image_url && (
               <div style={{ margin: "8px 0" }}>
                 <img
                   src={
-                    find.image_url?.startsWith("http")
-                      ? find.image_url
-                      : `${import.meta.env.VITE_API_URL}${f.image_url}`
+                    f.image_url?.startsWith("http")
+                      ? f.image_url // f vs find
+                      : `${import.meta.env.VITE_API_URL}${f.image_url}` // f vs find
                   }
                   alt={`${f.species ?? "Mushroom"} photo`}
-                  style={{ maxWidth: "100%", height: "auto", borderRadius: 8 }}
-                  loading="lazy"
+                  style={{ maxWidth: "80%", height: "auto", borderRadius: 8 }}
                 />
               </div>
             )}

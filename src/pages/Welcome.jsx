@@ -6,12 +6,15 @@ import { useAuth } from "../auth/AuthContext";
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN; //mapbox API key from .env
 
 export default function Welcome() {
+  //map stuff:
   const mapContainer = useRef(null); //ref to <div> that holds the map
   const map = useRef(null); //store map instance
   const markers = useRef([]); //holds active markers (incase they need to go)
+
   const [filter, setFilter] = useState(""); //input text for filtering Finds
-  const { data: finds } = useQuery("/finds", "all-finds"); //fetch all finds from API
-  const { token } = useAuth(); //get login token(to show user links)
+
+  const { data: finds } = useQuery("/finds", "all-finds");
+  const { token } = useAuth();
 
   //helper to make absolute img URLs
   const imgSrc = (pathOrUrl) => {
@@ -37,9 +40,13 @@ export default function Welcome() {
   useEffect(() => {
     if (!map.current || !finds) return;
 
-    //rmv any existing markersfrom previous render
+    //rmv old markers
     markers.current.forEach((m) => m.remove());
     markers.current = [];
+
+    // bounds to fit all visible markers
+    const bounds = new mapboxgl.LngLatBounds();
+    let added = 0;
 
     //loop over filtered finds and add markers
     finds
@@ -51,21 +58,33 @@ export default function Welcome() {
       .forEach((find) => {
         if (find.longitude == null || find.latitude == null) return;
 
+        const label = (find.location || "").trim();
+        const coords =
+          find.latitude != null && find.longitude != null
+            ? `(${Number(find.latitude).toFixed(5)}, ${Number(
+                find.longitude
+              ).toFixed(5)})`
+            : "";
+
+        //vPOPUP BLOCKv
         const popupContent = `
           <strong>${find.species ?? "Unknown"}</strong><br/>
-          ${find.date_found ?? ""}<br/>
+          ${find.date_found ?? ""}.slice(0, 10)}<br/>
+           ${label || coords ? `${label || coords}<br/>` : ""}
          ${
            find.image_url
              ? `<div style="margin:8px 0">
        <img
-         src="${imgSrc(find.image_url)}"
+         src="${imgSrc(find.image_url)}" 
          alt="${(find.species ?? "Mushroom").replace(/"/g, "&quot;")} photo"
-         style="max-width:100%;height:auto;border-radius:8px"
+         style="max-width:80%;height:auto;border-radius:8px"
+           loading="lazy"
+  referrerpolicy="no-referrer"
        />
      </div>`
              : ""
          }
-  ${token ? `<a href="/users/${find.username}/finds">${find.username}</a>` : ""}
+ ${token ? `<a href="/user/${find.username}/finds">${find.username}</a>` : ""}
 `; //popup HTML content/show link if logged in ^^
 
         const marker = new mapboxgl.Marker()
@@ -74,8 +93,17 @@ export default function Welcome() {
           .addTo(map.current);
 
         markers.current.push(marker); //push marker to track it/ if it needs to b removed
+        bounds.extend([find.longitude, find.latitude]);
+        added += 1;
       });
+
+    // if we placed any markers, fit the view to them
+    if (added > 0) {
+      map.current.fitBounds(bounds, { padding: 50, maxZoom: 6, duration: 800 });
+    }
   }, [finds, filter, token]);
+
+  //^
 
   return (
     <>
