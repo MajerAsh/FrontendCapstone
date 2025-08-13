@@ -1,15 +1,15 @@
 import { Link } from "react-router";
 import useQuery from "../api/useQuery"; //hook to fetch data from backend
 import useMutation from "../api/useMutation"; //hook to cr8 DELETE req
+import SpeciesFacts from "../components/SpeciesFacts";
 
 //vv fetches current user's finds from /finds/me, alias as "my-finds" for caching
 export default function MyFinds() {
   const { data: finds, loading, error } = useQuery("/finds/me", "my-finds");
-
   //v sets up mutation to delete a find, invalidates "my-finds" after run
   const { mutate: deleteFind } = useMutation("DELETE", null, ["my-finds"]);
+
   //v called when delete btn is clicked
-  //backend expects DELETE /finds/:id  but hook call is DELETE /finds
   async function handleDelete(findId) {
     const confirm = window.confirm(
       "Are you sure you want to delete this find?"
@@ -50,7 +50,8 @@ export default function MyFinds() {
                 />
               </div>
             )}
-            {/* smart location display */}
+
+            {/* location display */}
             {(() => {
               const hasCoords = find.latitude != null && find.longitude != null;
 
@@ -70,6 +71,9 @@ export default function MyFinds() {
                 </p>
               );
             })()}
+
+            {/*safety badge and fact sheet*/}
+            <SpeciesFacts name={find.species} />
             <button onClick={() => handleDelete(find.id)}>Delete</button>
             <Link to={`/edit/${find.id}`} style={{ marginLeft: 8 }}>
               Edit

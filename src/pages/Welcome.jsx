@@ -19,7 +19,7 @@ export default function Welcome() {
   const { data: finds } = useQuery("/finds", "all-finds");
   const { token } = useAuth();
 
-  //helper to make absolute img URLs
+  //helper to make absolute imgs full URLs
   const imgSrc = (pathOrUrl) => {
     if (!pathOrUrl) return null;
     return pathOrUrl.startsWith("http")

@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import useQuery from "../api/useQuery";
+import SpeciesFacts from "../components/SpeciesFacts";
 
 export default function UserPublicFinds() {
   const { username } = useParams();
@@ -53,6 +54,7 @@ export default function UserPublicFinds() {
                 <strong>Coords:</strong> {f.latitude}, {f.longitude}
               </p>
             )}
+            <SpeciesFacts name={find.species} />
           </div>
         ))}
       </div>
