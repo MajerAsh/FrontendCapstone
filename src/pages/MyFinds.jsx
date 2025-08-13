@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import useQuery from "../api/useQuery"; //hook to fetch data from backend
 import useMutation from "../api/useMutation"; //hook to cr8 DELETE req
 
@@ -69,9 +70,10 @@ export default function MyFinds() {
                 </p>
               );
             })()}
-            <button onClick={() => handleDelete(find.id)}>Delete</button>{" "}
-            {/* del btn */}
-            <button disabled>Edit</button>
+            <button onClick={() => handleDelete(find.id)}>Delete</button>
+            <Link to={`/edit/${find.id}`} style={{ marginLeft: 8 }}>
+              Edit
+            </Link>
           </div>
         ))}
       </div>

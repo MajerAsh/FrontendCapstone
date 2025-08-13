@@ -7,6 +7,7 @@ import Register from "./auth/Register";
 import CreateFind from "./pages/CreateFind";
 import FindForagers from "./pages/FindForagers";
 import UserPublicFinds from "./pages/UserPublicFinds";
+import EditFind from "./pages/EditFind";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="create" element={<CreateFind />} />
         <Route path="find-foragers" element={<FindForagers />} />
         <Route path="user/:username/finds" element={<UserPublicFinds />} />
+        <Route path="edit/:id" element={<EditFind />} />
       </Route>
     </Routes>
   );
