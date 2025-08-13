@@ -11,7 +11,10 @@ export default function Welcome() {
   const map = useRef(null); //store map instance
   const markers = useRef([]); //holds active markers (incase they need to go)
 
-  const [filter, setFilter] = useState(""); //input text for filtering Finds
+  //filter markers date/ species
+  const [speciesFilter, setSpeciesFilter] = useState("");
+  const [fromDate, setFromDate] = useState(""); // YYYY-MM-DD
+  const [toDate, setToDate] = useState(""); // YYYY-MM-DD
 
   const { data: finds } = useQuery("/finds", "all-finds");
   const { token } = useAuth();
@@ -27,7 +30,6 @@ export default function Welcome() {
   // Init the map 1x
   useEffect(() => {
     if (map.current) return;
-
     map.current = new mapboxgl.Map({
       container: mapContainer.current, //connect mapbox to <div>
       style: "mapbox://styles/mapbox/streets-v11", //map style
@@ -35,6 +37,23 @@ export default function Welcome() {
       zoom: 3,
     });
   }, []);
+
+  // helper: date within fromDate, toDate
+  function isWithinDateRange(dateStr, from, to) {
+    if (!dateStr) return false;
+    // Safe because your API returns 'YYYY-MM-DD'
+    // Convert to Date to be explicit and timezone-safe enough for this UI.
+    const d = new Date(dateStr + "T00:00:00");
+    if (from) {
+      const f = new Date(from + "T00:00:00");
+      if (d < f) return false;
+    }
+    if (to) {
+      const t = new Date(to + "T23:59:59");
+      if (d > t) return false;
+    }
+    return true;
+  }
 
   // Add MARKERS when finds load or filter changes
   useEffect(() => {
@@ -44,17 +63,25 @@ export default function Welcome() {
     markers.current.forEach((m) => m.remove());
     markers.current = [];
 
-    // bounds to fit all visible markers
+    //"bounds"to fit all visible markers
     const bounds = new mapboxgl.LngLatBounds();
     let added = 0;
 
-    //loop over filtered finds and add markers
+    //loop over filtered finds andshow those filtered markers
     finds
-      .filter(
-        (find) =>
-          filter === "" ||
-          (find.species || "").toLowerCase().includes(filter.toLowerCase())
-      )
+      .filter((find) => {
+        const speciesMatch =
+          speciesFilter === "" ||
+          (find.species || "")
+            .toLowerCase()
+            .includes(speciesFilter.toLowerCase());
+
+        const dateMatch =
+          (!fromDate && !toDate) ||
+          isWithinDateRange(find.date_found, fromDate, toDate);
+
+        return speciesMatch && dateMatch;
+      })
       .forEach((find) => {
         if (find.longitude == null || find.latitude == null) return;
 
@@ -79,7 +106,6 @@ export default function Welcome() {
          alt="${(find.species ?? "Mushroom").replace(/"/g, "&quot;")} photo"
          style="max-width:80%;height:auto;border-radius:8px"
            loading="lazy"
-  referrerpolicy="no-referrer"
        />
      </div>`
              : ""
@@ -101,22 +127,64 @@ export default function Welcome() {
     if (added > 0) {
       map.current.fitBounds(bounds, { padding: 50, maxZoom: 6, duration: 800 });
     }
-  }, [finds, filter, token]);
+  }, [finds, speciesFilter, fromDate, toDate, token]);
 
   //^
 
   return (
     <>
-      <h1>Welcome to MycoMap </h1>
-      <label>
-        Filter by species or location:
-        <input
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        />{" "}
-        {/* input updates filter state */}
-      </label>
-      <div ref={mapContainer} style={{ height: "500px" }} /> {/* THE MAP */}
+      <h1>Welcome to MycoMap</h1>
+
+      {/* Filters */}
+      <div
+        style={{
+          display: "grid",
+          gap: 8,
+          gridTemplateColumns: "1fr 1fr 1fr auto",
+          alignItems: "end",
+          marginBottom: 10,
+        }}
+      >
+        <label>
+          Species (text):
+          <input
+            value={speciesFilter}
+            onChange={(e) => setSpeciesFilter(e.target.value)}
+            placeholder="e.g. chanterelle"
+          />
+        </label>
+
+        <label>
+          From date:
+          <input
+            type="date"
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
+          />
+        </label>
+
+        <label>
+          To date:
+          <input
+            type="date"
+            value={toDate}
+            onChange={(e) => setToDate(e.target.value)}
+          />
+        </label>
+
+        <button
+          type="button"
+          onClick={() => {
+            setSpeciesFilter("");
+            setFromDate("");
+            setToDate("");
+          }}
+        >
+          Clear
+        </button>
+      </div>
+      {/*map*/}
+      <div ref={mapContainer} style={{ height: "500px" }} />
     </>
   );
 }
