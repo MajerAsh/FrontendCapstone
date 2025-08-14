@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useApi } from "./ApiContext";
 
-/**
- * Returns a function to mutate a resource, as well as some state
- * that tracks the response of that mutation request.
- */
+// mutate(body, overridePath?)
+
 export default function useMutation(method, resource, tagsToInvalidate) {
   const { request, invalidateTags } = useApi();
 
@@ -12,17 +10,26 @@ export default function useMutation(method, resource, tagsToInvalidate) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const mutate = async (body) => {
+  const mutate = async (body, overridePath) => {
     setLoading(true);
     setError(null);
 
     try {
-      const result = await request(resource, {
+      const isFormData = body instanceof FormData;
+      const options = {
         method,
-        body: JSON.stringify(body),
-      });
+        ...(body !== null && body !== undefined
+          ? { body: isFormData ? body : JSON.stringify(body) }
+          : {}),
+      };
+
+      const result = await request(
+        overridePath || resource,
+        options,
+        isFormData
+      );
       setData(result);
-      invalidateTags(tagsToInvalidate);
+      invalidateTags?.(tagsToInvalidate || []);
       return true;
     } catch (e) {
       console.error(e);
