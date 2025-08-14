@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="forest-rays">
         <Outlet />
       </main>
     </>

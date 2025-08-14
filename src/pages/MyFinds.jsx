@@ -2,6 +2,10 @@ import { Link } from "react-router";
 import useQuery from "../api/useQuery"; //hook to fetch data from backend
 import useMutation from "../api/useMutation"; //hook to cr8 DELETE req
 import SpeciesFacts from "../components/SpeciesFacts";
+//style:
+import "../styles/theme.css";
+import "../styles/finds.css";
+import "../styles/facts.css";
 
 //vv fetches current user's finds from /finds/me, alias as "my-finds" for caching
 export default function MyFinds() {
@@ -19,52 +23,48 @@ export default function MyFinds() {
   }
 
   return (
-    <>
+    <section className="finds container forest-rays">
       <h1>My Mushroom Finds</h1>
 
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
 
       <div className="finds-list">
         {finds?.length === 0 && <p>No finds yet. Go create one!</p>}
+
         {finds?.map((find) => (
-          <div key={find.id} className="find-card">
+          <article key={find.id} className="find-card sticker-corner">
             <h2>{find.species}</h2>
+
             <p>
               <strong>Date:</strong> {find.date_found}
             </p>
             <p>
               <strong>Description:</strong> {find.description}
             </p>
+
             {find.image_url && (
-              <div style={{ margin: "8px 0" }}>
-                <img
-                  src={
-                    find.image_url?.startsWith("http")
-                      ? find.image_url
-                      : `${import.meta.env.VITE_API_URL}${find.image_url}`
-                  }
-                  alt={`${find.species ?? "Mushroom"} photo`}
-                  style={{ maxWidth: "100%", height: "auto", borderRadius: 8 }}
-                  loading="lazy"
-                />
-              </div>
+              <img
+                src={
+                  find.image_url?.startsWith("http")
+                    ? find.image_url
+                    : `${import.meta.env.VITE_API_URL}${find.image_url}`
+                }
+                alt={`${find.species ?? "Mushroom"} photo`}
+                loading="lazy"
+              />
             )}
 
-            {/* location display */}
+            {/* location display  */}
             {(() => {
               const hasCoords = find.latitude != null && find.longitude != null;
-
               const coords = hasCoords
                 ? `(${Number(find.latitude).toFixed(5)}, ${Number(
                     find.longitude
                   ).toFixed(5)})`
                 : null;
-
               const label = find.location?.trim();
-
               const display = label || coords || "Not specified";
-
               return (
                 <p>
                   <strong>Location:</strong> {display}
@@ -72,15 +72,18 @@ export default function MyFinds() {
               );
             })()}
 
-            {/*safety badge and fact sheet*/}
+            {/* safety badge + fact sheet */}
             <SpeciesFacts name={find.species} />
-            <button onClick={() => handleDelete(find.id)}>Delete</button>
-            <Link to={`/edit/${find.id}`} style={{ marginLeft: 8 }}>
-              Edit
-            </Link>
-          </div>
+
+            <div className="actions">
+              <button onClick={() => handleDelete(find.id)}>Delete</button>
+              <Link to={`/edit/${find.id}`} className="button">
+                Edit
+              </Link>
+            </div>
+          </article>
         ))}
       </div>
-    </>
+    </section>
   );
 }

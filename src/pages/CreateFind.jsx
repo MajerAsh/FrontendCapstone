@@ -2,6 +2,8 @@ import { useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import useMutation from "../api/useMutation";
 import mapboxgl from "mapbox-gl";
+import "../styles/theme.css";
+import "../styles/forms.css";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN; //mapbox token
 
@@ -145,107 +147,98 @@ export default function CreateFind() {
   }
 
   return (
-    <>
-      <h1>Log a New Mushroom Find</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Species:
-          <input
-            name="species"
-            value={formData.species}
-            onChange={handleChange}
-            required
-          />
-        </label>
+    <div className="form-screen">
+      <div className="form-card sticker-gnome">
+        <h1 className="form-title">Log a New Mushroom Find</h1>
 
-        <label>
-          Date Found:
-          <input
-            type="date" // HTML5 input type for picker UI (mini calendar)
-            name="date_found"
-            value={formData.date_found}
-            onChange={handleChange}
-            required
-          />
-        </label>
-
-        <label>
-          Description:
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </label>
-
-        {/* location inputs (optional for user) */}
-        <div
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}
-        >
+        <form onSubmit={handleSubmit}>
           <label>
-            Latitude (optional):
+            Species:
             <input
-              name="latitude"
-              type="number"
-              step="any"
-              value={formData.latitude}
+              name="species"
+              value={formData.species}
               onChange={handleChange}
-              placeholder="Click map or use My Location"
+              required
             />
           </label>
+
           <label>
-            Longitude (optional):
+            Date Found:
             <input
-              name="longitude"
-              type="number"
-              step="any"
-              value={formData.longitude}
+              type="date"
+              name="date_found"
+              value={formData.date_found}
               onChange={handleChange}
-              placeholder="Click map or use My Location"
+              required
             />
           </label>
-        </div>
 
-        <div style={{ margin: "8px 0" }}>
-          <button type="button" onClick={useMyLocation}>
-            Use my location
-          </button>
-        </div>
+          <label>
+            Description:
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </label>
 
-        {/* small map picker */}
-        <div
-          ref={mapContainerRef}
-          style={{
-            height: 260,
-            border: "1px solid #ccc",
-            borderRadius: 8,
-            marginBottom: 12,
-          }}
-        />
+          <div className="two-col">
+            <label>
+              Latitude (optional):
+              <input
+                name="latitude"
+                type="number"
+                step="any"
+                value={formData.latitude}
+                onChange={handleChange}
+                placeholder="Click map or use My Location"
+              />
+            </label>
+            <label>
+              Longitude (optional):
+              <input
+                name="longitude"
+                type="number"
+                step="any"
+                value={formData.longitude}
+                onChange={handleChange}
+                placeholder="Click map or use My Location"
+              />
+            </label>
+          </div>
 
-        <label>
-          Location label (optional):
-          <input
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="e.g. Eugene, OR trailhead"
-          />
-        </label>
+          <div className="helper">
+            <button type="button" onClick={useMyLocation}>
+              Use my location
+            </button>
+          </div>
 
-        <label>
-          Photo (optional):
-          <input
-            type="file"
-            name="photo"
-            accept="image/*"
-            onChange={handleFile}
-          />
-        </label>
+          <div ref={mapContainerRef} className="mini-map" />
 
-        <button disabled={loading}>Create Find</button>
-        {error && <output style={{ color: "red" }}>{error}</output>}
-      </form>
-    </>
+          <label>
+            Location label (optional):
+            <input
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              placeholder="e.g. Eugene, OR trailhead"
+            />
+          </label>
+
+          <label>
+            Photo (optional):
+            <input
+              type="file"
+              name="photo"
+              accept="image/*"
+              onChange={handleFile}
+            />
+          </label>
+
+          <button disabled={loading}>Create Find</button>
+          {error && <output className="error">{error}</output>}
+        </form>
+      </div>
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /*ApiContext attaches the user's authentication token to API requests when possible + 
 handles tags to refresh appropriate queries after a mutation*/
 

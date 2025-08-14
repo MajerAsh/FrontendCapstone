@@ -1,0 +1,32 @@
+.foragers {
+  width: min(960px, 100%);
+  margin-inline: auto;
+  padding: 16px;
+}
+.foragers label {
+  margin-bottom: 8px;
+}
+.foragers ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  gap: 8px;
+}
+.foragers li {
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.foragers a {
+  font-weight: 800;
+  color: var(--ink);
+  text-decoration: none;
+}
+.foragers a:hover {
+  text-decoration: underline;
+}

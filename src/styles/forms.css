@@ -1,0 +1,46 @@
+.form-screen {
+  width: min(720px, 100%);
+  margin-inline: auto;
+  padding: 16px;
+}
+.form-card {
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+.form-title {
+  margin: 6px 0 10px;
+}
+
+.two-col {
+  display: grid;
+  gap: 8px;
+}
+@media (min-width: 640px) {
+  .two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.mini-map {
+  height: 260px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 8px 0 12px;
+}
+
+.helper {
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+}
+
+/* Upload */
+input[type="file"] {
+  background: #0f241a;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+}

@@ -1,0 +1,10 @@
+.badge {
+  /* intentionally left minimal so it doesn't error as empty */
+  display: inline-flex;
+}
+.sf {
+  margin-top: 6px;
+}
+.sf .badge {
+  margin-bottom: 6px;
+}

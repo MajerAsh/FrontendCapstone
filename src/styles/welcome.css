@@ -1,0 +1,22 @@
+.welcome {
+  width: min(960px, 100%);
+  margin-inline: auto;
+  padding: 16px;
+}
+.welcome h1 {
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  margin: 8px 0 12px;
+}
+.welcome .filter {
+  margin-bottom: 12px;
+}
+
+.map-wrap {
+  height: 480px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow);
+}
+
+/* Mapbox default popup image rounding lives in index.css already */
