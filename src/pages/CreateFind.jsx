@@ -161,7 +161,7 @@ export default function CreateFind() {
         <label>
           Date Found:
           <input
-            type="date"
+            type="date" // HTML5 input type for picker UI (mini calendar)
             name="date_found"
             value={formData.date_found}
             onChange={handleChange}

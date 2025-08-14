@@ -3,6 +3,7 @@ import useQuery from "../api/useQuery";
 import SpeciesFacts from "../components/SpeciesFacts";
 
 export default function UserPublicFinds() {
+  // grab finds for a user's username
   const { username } = useParams();
   const {
     data: finds,

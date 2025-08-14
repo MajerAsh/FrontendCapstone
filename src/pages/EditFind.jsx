@@ -151,7 +151,7 @@ export default function EditFind() {
         <label>
           Date Found:
           <input
-            type="date"
+            type="date" //mini calendar
             name="date_found"
             value={formData.date_found}
             onChange={handleChange}
