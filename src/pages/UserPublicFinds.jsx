@@ -20,38 +20,38 @@ export default function UserPublicFinds() {
       {!finds?.length && <p>No finds yet.</p>}
 
       <div className="finds-list">
-        {finds?.map((f) => (
-          <div key={f.id} className="find-card">
-            <h2>{f.species}</h2>
+        {finds?.map((find) => (
+          <div key={find.id} className="find-card">
+            <h2>{find.species}</h2>
             <p>
-              <strong>Date:</strong> {f.date_found}
+              <strong>Date:</strong> {find.date_found}
             </p>
             <p>
-              <strong>Description:</strong> {f.description}
+              <strong>Description:</strong> {find.description}
             </p>
 
             {/* thumb if theres a image_url */}
-            {f.image_url && (
+            {find.image_url && (
               <div style={{ margin: "8px 0" }}>
                 <img
                   src={
-                    f.image_url?.startsWith("http")
-                      ? f.image_url // f vs find
-                      : `${import.meta.env.VITE_API_URL}${f.image_url}` // f vs find
+                    find.image_url?.startsWith("http")
+                      ? find.image_url // f vs find
+                      : `${import.meta.env.VITE_API_URL}${find.image_url}` // f vs find
                   }
-                  alt={`${f.species ?? "Mushroom"} photo`}
+                  alt={`${find.species ?? "Mushroom"} photo`}
                   style={{ maxWidth: "80%", height: "auto", borderRadius: 8 }}
                 />
               </div>
             )}
-            {f.location && (
+            {find.location && (
               <p>
-                <strong>Location:</strong> {f.location}
+                <strong>Location:</strong> {find.location}
               </p>
             )}
-            {f.latitude != null && f.longitude != null && (
+            {find.latitude != null && find.longitude != null && (
               <p>
-                <strong>Coords:</strong> {f.latitude}, {f.longitude}
+                <strong>Coords:</strong> {find.latitude}, {find.longitude}
               </p>
             )}
             <SpeciesFacts name={find.species} />
