@@ -17,6 +17,7 @@
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow);
+  margin-top: 16px;
 }
 
 /* Mapbox default popup image rounding lives in index.css already */
