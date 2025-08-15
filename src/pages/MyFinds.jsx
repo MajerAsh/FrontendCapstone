@@ -33,7 +33,10 @@ export default function MyFinds() {
         {finds?.length === 0 && <p>No finds yet. Go create one!</p>}
 
         {finds?.map((find) => (
-          <article key={find.id} className="find-card sticker-corner">
+          <article
+            key={find.id}
+            className="find-card corner-sticker corner-sticker--mushroom"
+          >
             <h2>{find.species}</h2>
 
             <p>

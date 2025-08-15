@@ -31,6 +31,7 @@
   list-style-type: none;
   text-decoration: none;
 }
+
 .foragers a {
   font-weight: 800;
   color: var(--ink);
@@ -39,23 +40,4 @@
 }
 .foragers a:hover {
   text-decoration: underline;
-}
-
-/*gnome*/
-@media (min-width: 900px) {
-  .foragers::after {
-    content: "";
-    position: absolute;
-    right: -6px;
-    top: 60px;
-    width: 120px;
-    height: 120px;
-    background: url("/svgs/gnome.svg") center / contain no-repeat;
-    opacity: 0.9;
-    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
-    pointer-events: none;
-  }
-  .foragers {
-    position: relative;
-  } /* for ::after positioning */
 }

@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import useQuery from "../api/useQuery";
 import { useAuth } from "../auth/AuthContext";
-
-// themed styles (import once globally if you prefer)
 import "../styles/theme.css";
 import "../styles/welcome.css";
 
@@ -137,7 +135,7 @@ export default function Welcome() {
 
   // UI (styled, no inline layout)
   return (
-    <section className="welcome container forest-rays sticker-corner">
+    <section className="welcome container forest-rays  corner-sticker corner-sticker--mushroom">
       <h1>Welcome to MycoMap</h1>
 
       {/* Filters */}

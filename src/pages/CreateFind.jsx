@@ -150,97 +150,94 @@ export default function CreateFind() {
 
   return (
     <div className="form-screen">
-      <div className="form-card sticker-gnome">
-        <h1 className="form-title">Log a New Mushroom Find</h1>
+      <h1 className="form-title">Log a New Mushroom Find</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Species:
+          <input
+            name="species"
+            value={formData.species}
+            onChange={handleChange}
+            required
+          />
+        </label>
 
-        <form onSubmit={handleSubmit}>
+        <label>
+          Date Found:
+          <input
+            type="date"
+            name="date_found"
+            value={formData.date_found}
+            onChange={handleChange}
+            required
+          />
+        </label>
+
+        <label>
+          Description:
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+        </label>
+
+        <div className="two-col">
           <label>
-            Species:
+            Latitude (optional):
             <input
-              name="species"
-              value={formData.species}
+              name="latitude"
+              type="number"
+              step="any"
+              value={formData.latitude}
               onChange={handleChange}
-              required
+              placeholder="Click map or use My Location"
             />
           </label>
-
           <label>
-            Date Found:
+            Longitude (optional):
             <input
-              type="date"
-              name="date_found"
-              value={formData.date_found}
+              name="longitude"
+              type="number"
+              step="any"
+              value={formData.longitude}
               onChange={handleChange}
-              required
+              placeholder="Click map or use My Location"
             />
           </label>
+        </div>
 
-          <label>
-            Description:
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </label>
+        <div className="helper">
+          <button type="button" onClick={useMyLocation}>
+            Use my location
+          </button>
+        </div>
 
-          <div className="two-col">
-            <label>
-              Latitude (optional):
-              <input
-                name="latitude"
-                type="number"
-                step="any"
-                value={formData.latitude}
-                onChange={handleChange}
-                placeholder="Click map or use My Location"
-              />
-            </label>
-            <label>
-              Longitude (optional):
-              <input
-                name="longitude"
-                type="number"
-                step="any"
-                value={formData.longitude}
-                onChange={handleChange}
-                placeholder="Click map or use My Location"
-              />
-            </label>
-          </div>
+        <div ref={mapContainerRef} className="mini-map" />
 
-          <div className="helper">
-            <button type="button" onClick={useMyLocation}>
-              Use my location
-            </button>
-          </div>
+        <label>
+          Location label (optional):
+          <input
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            placeholder="e.g. Eugene, OR trailhead"
+          />
+        </label>
 
-          <div ref={mapContainerRef} className="mini-map" />
+        <label>
+          Photo (optional):
+          <input
+            type="file"
+            name="photo"
+            accept="image/*"
+            onChange={handleFile}
+          />
+        </label>
 
-          <label>
-            Location label (optional):
-            <input
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="e.g. Eugene, OR trailhead"
-            />
-          </label>
-
-          <label>
-            Photo (optional):
-            <input
-              type="file"
-              name="photo"
-              accept="image/*"
-              onChange={handleFile}
-            />
-          </label>
-
-          <button disabled={loading}>Create Find</button>
-          {error && <output className="error">{error}</output>}
-        </form>
-      </div>
+        <button disabled={loading}>Create Find</button>
+        {error && <output className="error">{error}</output>}
+      </form>
     </div>
   );
 }

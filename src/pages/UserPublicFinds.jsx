@@ -26,39 +26,41 @@ export default function UserPublicFinds() {
       <div className="finds-list">
         {finds?.map((find) => (
           <article key={find.id} className="find-card">
-            <h2>{find.species}</h2>
+            <section className="corner-sticker corner-sticker--gnome">
+              <h2>{find.species}</h2>
 
-            <p>
-              <strong>Date:</strong> {find.date_found}
-            </p>
-            <p>
-              <strong>Description:</strong> {find.description}
-            </p>
-
-            {find.image_url && (
-              <img
-                src={
-                  find.image_url?.startsWith("http")
-                    ? find.image_url
-                    : `${import.meta.env.VITE_API_URL}${find.image_url}`
-                }
-                alt={`${find.species ?? "Mushroom"} photo`}
-                loading="lazy"
-              />
-            )}
-
-            {find.location && (
               <p>
-                <strong>Location:</strong> {find.location}
+                <strong>Date:</strong> {find.date_found}
               </p>
-            )}
-            {find.latitude != null && find.longitude != null && (
               <p>
-                <strong>Coords:</strong> {find.latitude}, {find.longitude}
+                <strong>Description:</strong> {find.description}
               </p>
-            )}
 
-            <SpeciesFacts name={find.species} />
+              {find.image_url && (
+                <img
+                  src={
+                    find.image_url?.startsWith("http")
+                      ? find.image_url
+                      : `${import.meta.env.VITE_API_URL}${find.image_url}`
+                  }
+                  alt={`${find.species ?? "Mushroom"} photo`}
+                  loading="lazy"
+                />
+              )}
+
+              {find.location && (
+                <p>
+                  <strong>Location:</strong> {find.location}
+                </p>
+              )}
+              {find.latitude != null && find.longitude != null && (
+                <p>
+                  <strong>Coords:</strong> {find.latitude}, {find.longitude}
+                </p>
+              )}
+
+              <SpeciesFacts name={find.species} />
+            </section>
           </article>
         ))}
       </div>

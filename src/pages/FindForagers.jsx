@@ -26,29 +26,30 @@ export default function FindForagers() {
 
   return (
     <section className="foragers container">
-      <h1>Find Foragers</h1>
-      <label>
-        Search by username:
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="e.g. mushroom_mary"
-        />
-      </label>
+      <section className="corner-sticker corner-sticker--gnome">
+        <label>
+          Search by username:
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="e.g. mushroom_mary"
+          />
+        </label>
 
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {loading && <p>Loading...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <ul>
-        {(users ?? []).map((u) => (
-          <li key={u.id}>
-            <Link to={`/user/${u.username}/finds`}>{u.username}</Link>
-            {u.city || u.state
-              ? ` — ${[u.city, u.state].filter(Boolean).join(", ")}`
-              : ""}
-          </li>
-        ))}
-      </ul>
+        <ul>
+          {(users ?? []).map((u) => (
+            <li key={u.id}>
+              <Link to={`/user/${u.username}/finds`}>{u.username}</Link>
+              {u.city || u.state
+                ? ` — ${[u.city, u.state].filter(Boolean).join(", ")}`
+                : ""}
+            </li>
+          ))}
+        </ul>
+      </section>
     </section>
   );
 }
