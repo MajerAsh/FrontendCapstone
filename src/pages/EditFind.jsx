@@ -94,9 +94,12 @@ export default function EditFind() {
       markerRef.current.setLngLat([lng, lat]);
     } else {
       //on drag end, copy coords into form state
-      markerRef.current = new mapboxgl.Marker({ draggable: true })
+      markerRef.current = new mapboxgl.Marker({
+        draggable: true,
+      })
         .setLngLat([lng, lat])
         .addTo(mapRef.current);
+
       markerRef.current.on("dragend", () => {
         const { lng, lat } = markerRef.current.getLngLat();
         setFormData((s) => ({

@@ -68,7 +68,9 @@ export default function CreateFind() {
     if (markerRef.current) {
       markerRef.current.setLngLat([lng, lat]);
     } else {
-      markerRef.current = new mapboxgl.Marker({ draggable: true })
+      markerRef.current = new mapboxgl.Marker({
+        draggable: true,
+      })
         .setLngLat([lng, lat])
         .addTo(mapRef.current);
 

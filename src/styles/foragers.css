@@ -1,32 +1,61 @@
 .foragers {
   width: min(960px, 100%);
   margin-inline: auto;
-  padding: 16px;
+  padding: 20px;
 }
+
 .foragers label {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
+
 .foragers ul {
+  text-decoration: none;
   list-style: none;
   padding: 0;
-  margin: 12px 0 0;
+  margin: 14px 0 0;
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
+
 .foragers li {
   background: var(--card);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 10px 12px;
+  border-radius: 14px;
+  padding: 12px 14px;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
+  gap: 1.075rem;
+  align-items: center;
+  box-shadow: var(--shadow);
+  list-style-type: none;
+  text-decoration: none;
 }
 .foragers a {
   font-weight: 800;
   color: var(--ink);
   text-decoration: none;
+  list-style-type: none;
 }
 .foragers a:hover {
   text-decoration: underline;
+}
+
+/*gnome*/
+@media (min-width: 900px) {
+  .foragers::after {
+    content: "";
+    position: absolute;
+    right: -6px;
+    top: 60px;
+    width: 120px;
+    height: 120px;
+    background: url("/svgs/gnome.svg") center / contain no-repeat;
+    opacity: 0.9;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+    pointer-events: none;
+  }
+  .foragers {
+    position: relative;
+  } /* for ::after positioning */
 }

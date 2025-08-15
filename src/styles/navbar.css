@@ -16,10 +16,8 @@
   border-radius: 999px;
 }
 #navbar a[aria-current="page"] {
-  background: rgba(255, 255, 255, 0.08);
-}
-#navbar button {
-  background: linear-gradient(180deg, #ff7ea3, #ff5a7a);
-  color: #2b0010;
-  box-shadow: 0 4px 0 #d24561, 0 10px 20px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, var(--accent), #ffb300);
+  color: #2b1d00 !important;
+  box-shadow: 0 3px 0 #cc9a00, 0 10px 20px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }

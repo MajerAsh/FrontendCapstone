@@ -25,7 +25,7 @@ export default function FindForagers() {
   }, [input]);
 
   return (
-    <>
+    <section className="foragers container">
       <h1>Find Foragers</h1>
       <label>
         Search by username:
@@ -49,6 +49,6 @@ export default function FindForagers() {
           </li>
         ))}
       </ul>
-    </>
+    </section>
   );
 }
