@@ -11,6 +11,13 @@
   margin-bottom: 12px;
 }
 
+/* Mapbox default popup image */
+.mapboxgl-popup-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 .map-wrap {
   height: 480px;
   border-radius: var(--radius);
@@ -23,5 +30,3 @@
 .welcome .map-wrap {
   margin-top: 16px;
 }
-
-/* Mapbox default popup image rounding lives in index.css already */

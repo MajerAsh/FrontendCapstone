@@ -5,7 +5,6 @@ import SpeciesFacts from "../components/SpeciesFacts";
 //style:
 import "../styles/theme.css";
 import "../styles/finds.css";
-import "../styles/facts.css";
 
 //vv fetches current user's finds from /finds/me, alias as "my-finds" for caching
 export default function MyFinds() {

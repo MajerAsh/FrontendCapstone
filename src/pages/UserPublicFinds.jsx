@@ -4,7 +4,6 @@ import SpeciesFacts from "../components/SpeciesFacts";
 //style:
 import "../styles/theme.css";
 import "../styles/finds.css";
-import "../styles/facts.css";
 
 export default function UserPublicFinds() {
   // grab finds for a user's username
