@@ -19,5 +19,9 @@
   box-shadow: var(--shadow);
   margin-top: 16px;
 }
+/*clear button and the map*/
+.welcome .map-wrap {
+  margin-top: 16px;
+}
 
 /* Mapbox default popup image rounding lives in index.css already */

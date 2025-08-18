@@ -152,29 +152,6 @@ output,
   }
 }
 
-/* One bouncing gnome, bottom-right (kept per your request) */
-.gnome-fixed {
-  position: fixed;
-  right: max(12px, env(safe-area-inset-right));
-  bottom: calc(12px + env(safe-area-inset-bottom));
-  width: clamp(68px, 12vw, 120px);
-  height: auto;
-  z-index: 999;
-  pointer-events: none;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
-  transform-origin: center bottom;
-  animation: gnome-bounce 1.8s ease-in-out infinite;
-}
-@keyframes gnome-bounce {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-12px) rotate(-2deg);
-  }
-}
-
 /*stickers*/
 .corner-sticker {
   position: relative;
@@ -189,16 +166,15 @@ output,
   background-size: contain;
   background-repeat: no-repeat;
   pointer-events: none;
-  transform: rotate(6deg);
+  transform: rotate(1deg);
 }
 
-/* choose one of these per place you want a sticker */
 .corner-sticker--mushroom::after {
   background-image: url("/svgs/boletepin.svg");
   margin-top: 1rem;
   margin-right: 2rem;
 }
 .corner-sticker--gnome::after {
-  background-image: url("/svgs/gnome.svg");
+  background-image: url("/svgs/mush-4.svg");
   transform: rotate(-8deg);
 }
