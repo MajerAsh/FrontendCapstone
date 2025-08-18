@@ -89,17 +89,21 @@ footer {
 /* Buttons */
 .button,
 button {
-  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 999px;
   appearance: none;
   border: 0;
-  border-radius: 999px;
+  font-size: 0.95rem;
+  line-height: 1;
   padding: 10px 16px;
   font-weight: 700;
   background: linear-gradient(180deg, var(--accent), #ffb300);
   color: #2b1d00;
   box-shadow: 0 4px 0 #cc9a00, 0 10px 20px rgba(0, 0, 0, 0.3);
   transition: transform 0.08s ease, box-shadow 0.08s ease;
-  list-style-type: none;
   text-decoration: none;
 }
 
@@ -111,6 +115,14 @@ button:hover {
 button:active {
   transform: translateY(2px);
   box-shadow: 0 2px 0 #cc9a00;
+}
+
+/* Danger variant for Delete */
+.button--danger {
+  background: linear-gradient(180deg, #ff5a7a, #d8193a);
+  color: #fff;
+  box-shadow: 0 4px 0 #9e1228, 0 10px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 /* Forms */
@@ -177,8 +189,4 @@ output,
 .corner-sticker--gnome::after {
   background-image: url("/svgs/mush-4.svg");
   transform: rotate(-8deg);
-}
-
-.error {
-  color: red;
 }
