@@ -138,10 +138,6 @@ export default function EditFind() {
   if (error) return <p className="error">{error}</p>;
   if (!find) return <p>Not found.</p>; //404 case
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p className="error">{error}</p>;
-  if (!find) return <p>Not found.</p>;
-
   return (
     <div className="form-screen">
       <div className="form-card">

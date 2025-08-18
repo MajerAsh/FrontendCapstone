@@ -59,8 +59,14 @@ export function ApiProvider({ children }) {
   /*invalidates one or more tags to trigger query refresh:
       param: tagsToInvalidate - array of tag strings*/
   const invalidateTags = (tagsToInvalidate) => {
-    tagsToInvalidate?.forEach((tag) => tags[tag]?.());
+    const list = Array.isArray(tagsToInvalidate)
+      ? tagsToInvalidate
+      : tagsToInvalidate
+      ? [tagsToInvalidate]
+      : [];
+    list.forEach((tag) => tags[tag]?.());
   };
+
   //context value: exposes the request helper + tag methods:
   const value = { request, provideTag, invalidateTags };
   return <ApiContext.Provider value={value}>{children}</ApiContext.Provider>;
