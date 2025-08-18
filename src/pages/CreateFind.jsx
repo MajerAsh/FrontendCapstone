@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import useMutation from "../api/useMutation";
 import mapboxgl from "mapbox-gl";
+
 import "../styles/theme.css";
 import "../styles/forms.css";
 
@@ -11,7 +12,7 @@ export default function CreateFind() {
   const navigate = useNavigate();
   const { mutate, error, loading } = useMutation("POST", "/finds", [
     "my-finds",
-  ]); //POST /finds via FormData
+  ]);
 
   //form state
   const [formData, setFormData] = useState({

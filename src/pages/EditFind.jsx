@@ -33,12 +33,12 @@ export default function EditFind() {
   });
   const [file, setFile] = useState(null);
 
-  //mini maps
+  //maps
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
   const markerRef = useRef(null);
 
-  //fill state once Find loads
+  //fill form once Find loads
   useEffect(() => {
     if (find) {
       setFormData({
@@ -53,7 +53,7 @@ export default function EditFind() {
     }
   }, [find]);
 
-  //center on existing coords (if present) after find loads
+  // init map 1x
   useEffect(() => {
     if (mapRef.current || !mapContainerRef.current) return;
     mapRef.current = new mapboxgl.Map({
@@ -74,6 +74,7 @@ export default function EditFind() {
     });
   }, []);
 
+  //center on existing coords when available
   useEffect(() => {
     if (!find || !mapRef.current) return;
     if (find.longitude != null && find.latitude != null) {
@@ -118,7 +119,7 @@ export default function EditFind() {
   function handleFile(e) {
     setFile(e.target.files?.[0] || null);
   }
-  //call PUT with override path:
+  //send PUT with override path:
   async function handleSubmit(e) {
     e.preventDefault();
     const fd = new FormData();
