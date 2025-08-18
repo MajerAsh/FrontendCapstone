@@ -1,10 +1,8 @@
-import "../styles/EditFind.css";
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router";
 import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
 import mapboxgl from "mapbox-gl";
-
 import "../styles/theme.css";
 import "../styles/forms.css";
 

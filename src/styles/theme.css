@@ -178,3 +178,7 @@ output,
   background-image: url("/svgs/mush-4.svg");
   transform: rotate(-8deg);
 }
+
+.error {
+  color: red;
+}

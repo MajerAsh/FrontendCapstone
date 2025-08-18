@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router";
 import { ApiProvider } from "./api/ApiContext.jsx";
 import App from "./App.jsx";
 import { AuthProvider } from "./auth/AuthContext.jsx";
-//import "./index.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./styles/theme.css";
 import "./styles/navbar.css";
