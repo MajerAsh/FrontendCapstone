@@ -30,3 +30,14 @@
 .welcome .map-wrap {
   margin-top: 16px;
 }
+
+/*custom 🍄 map marker*/
+.marker-mushroom img {
+  width: 31px;
+  height: 31px;
+  display: block;
+  pointer-events: none;
+}
+.marker-mushroom {
+  transform: translateY(-2px);
+}

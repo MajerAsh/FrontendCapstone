@@ -66,6 +66,13 @@ export default function Welcome() {
     const bounds = new mapboxgl.LngLatBounds();
     let added = 0;
 
+    const makeMushroomEl = () => {
+      const el = document.createElement("div");
+      el.className = "marker-mushroom";
+      el.innerHTML = `<img src="/svgs/mushroom.svg" alt="mushroom marker" />`;
+      return el;
+    };
+
     finds
       .filter((find) => {
         const speciesMatch =
@@ -118,7 +125,13 @@ export default function Welcome() {
           }
         `;
 
-        const marker = new mapboxgl.Marker()
+        //v custom map marker v
+        const marker = new mapboxgl.Marker({
+          element: makeMushroomEl(),
+          anchor: "bottom", // tip sits on coords
+          offset: [0, 4], // tiny nudge
+        })
+
           .setLngLat([find.longitude, find.latitude])
           .setPopup(new mapboxgl.Popup().setHTML(popupContent))
           .addTo(map.current);
