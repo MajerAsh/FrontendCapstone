@@ -29,6 +29,10 @@
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
+  /*anchor btns*/
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
 }
 .find-card h2 {
   font-size: 1.1rem;
@@ -52,6 +56,10 @@
   gap: 8px;
   align-items: center;
   margin-top: 8px;
+  /*anvhor*/
+  margin-top: auto;
+  padding-top: 8px;
+  justify-content: flex-end;
 }
 
 /* glow border */
