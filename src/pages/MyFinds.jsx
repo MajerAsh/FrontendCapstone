@@ -46,15 +46,17 @@ export default function MyFinds() {
             </p>
 
             {find.image_url && (
-              <img
-                src={
-                  find.image_url?.startsWith("http")
-                    ? find.image_url
-                    : `${import.meta.env.VITE_API_URL}${find.image_url}`
-                }
-                alt={`${find.species ?? "Mushroom"} photo`}
-                loading="lazy"
-              />
+              <div className="media">
+                <img
+                  src={
+                    find.image_url?.startsWith("http")
+                      ? find.image_url
+                      : `${import.meta.env.VITE_API_URL}${find.image_url}`
+                  }
+                  alt={`${find.species ?? "Mushroom"} photo`}
+                  loading="lazy"
+                />
+              </div>
             )}
             {find.hide_location && (
               <span className="badge badge--secret" title="Hidden from others">

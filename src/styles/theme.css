@@ -182,7 +182,7 @@ output,
 }
 
 .corner-sticker--mushroom::after {
-  background-image: url("/svgs/boletepin.svg");
+  background-image: url("/svgs/mushroom.png");
   margin-top: 1rem;
   margin-right: 2rem;
 }

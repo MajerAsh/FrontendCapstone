@@ -21,6 +21,23 @@
   }
 }
 
+/* img sizing for cards */
+:root {
+  /* tweak these to taste */
+  --thumb-ratio: 4 / 3; /* 1/1, 3/2, 16/9... */
+  --thumb-max-h: 220px; /* cap the media height */
+}
+@media (min-width: 680px) {
+  :root {
+    --thumb-max-h: 240px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --thumb-max-h: 260px;
+  }
+}
+
 .find-card {
   background: var(--card);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -29,7 +46,7 @@
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
-  /*anchor btns*/
+  /*anchor btns.actions*/
   display: flex;
   flex-direction: column;
   min-height: 260px;
@@ -43,12 +60,23 @@
   color: var(--ink-dim);
 }
 
-.find-card img {
+.find-card .media {
+  aspect-ratio: var(--thumb-ratio);
+  max-height: var(--thumb-max-h);
   width: 100%;
-  height: auto;
+  overflow: hidden;
   border-radius: 12px;
-  display: block;
+  background: #0f241a;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 8px 0;
+}
+
+/* "contain the photo"/ dont crop */
+.find-card .media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain; /* use 'contain' if you prefer no cropping */
 }
 
 .find-card .actions {
@@ -162,7 +190,7 @@
   color: #0b1418;
 }
 
-/* Public page: “kept secret” note */
+/* "location kept secret”*/
 .secret-note {
   color: var(--ink-dim);
   font-style: italic;

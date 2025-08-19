@@ -148,8 +148,8 @@ export default function Welcome() {
 
   // UI (styled, no inline layout)
   return (
-    <section className="welcome container forest-rays  corner-sticker corner-sticker--mushroom">
-      <h1>Welcome to MycoMap</h1>
+    <section className="welcome container forest-rays  corner-sticker corner-sticker--gnome">
+      <h1>Welcome to Myco Map</h1>
 
       {/* Filters */}
       <div className="grid">
