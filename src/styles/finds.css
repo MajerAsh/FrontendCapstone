@@ -1,3 +1,5 @@
+/* find cards, badges and fact sheet*/
+
 .finds {
   width: min(960px, 100%);
   margin-inline: auto;
@@ -27,6 +29,10 @@
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
+  /*anchor btns*/
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
 }
 .find-card h2 {
   font-size: 1.1rem;
@@ -50,6 +56,10 @@
   gap: 8px;
   align-items: center;
   margin-top: 8px;
+  /*anvhor*/
+  margin-top: auto;
+  padding-top: 8px;
+  justify-content: flex-end;
 }
 
 /* glow border */
@@ -73,6 +83,7 @@
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
+
 .find-card:hover::before {
   opacity: 1;
 }
@@ -135,6 +146,34 @@
   75% {
     transform: rotate(2deg);
   }
+}
+
+/*LOCK BADGE*/
+/* Keep Secret:*/
+.badge--secret {
+  background: radial-gradient(
+    120% 120% at 20% 20%,
+    #ffd863,
+    #a37c05,
+    #3d2e01 /* Grays: #cfd8dc 0,
+    #90a4ae 60%,
+    #546e7a 100%*/
+  );
+  color: #0b1418;
+}
+
+/* Public page: “kept secret” note */
+.secret-note {
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+/* secret badge lock icon */
+.badge--secret .lock-icon {
+  width: 23px;
+  height: 23px;
+  margin-right: 1px;
+  vertical-align: middle;
 }
 
 /* fact sheet */

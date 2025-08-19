@@ -56,7 +56,12 @@ export default function MyFinds() {
                 loading="lazy"
               />
             )}
-
+            {find.hide_location && (
+              <span className="badge badge--secret" title="Hidden from others">
+                <img src="/svgs/lock.svg" alt="Locked" className="lock-icon" />
+                Location Secret
+              </span>
+            )}
             {/* location display  */}
             {(() => {
               const hasCoords = find.latitude != null && find.longitude != null;

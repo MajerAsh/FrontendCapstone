@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 128 128" xml:space="preserve">
+<g>
+	<circle style="fill:#A8C954;" cx="64" cy="64" r="64"/>
+	<g>
+		<path style="fill:#F4EDDA;" d="M47.612,52V35.913c0-4.923,3.878-8.913,8.801-8.913h16.174c4.923,0,9.025,3.99,9.025,8.913V52h6
+			V35.913C87.612,27.677,80.823,21,72.587,21H56.413c-8.236,0-14.801,6.677-14.801,14.913V52H47.612z"/>
+		<path style="fill:#F3C80A;" d="M34.612,46v44.447c0,1.41,0.472,2.553,2.036,2.553h53.048c1.564,0,3.916-1.143,3.916-2.553V46
+			H34.612z"/>
+		<rect x="34.612" y="81" style="fill:#F4EDDA;" width="59" height="6"/>
+		<rect x="34.612" y="51" style="fill:#F4EDDA;" width="59" height="6"/>
+		<path style="fill:#5C5D61;" d="M70.405,67.047c0-3.525-2.857-6.382-6.382-6.382s-6.382,2.857-6.382,6.382
+			c0,2.656,1.623,4.59,3.931,5.551L61.045,77h5.956l-0.527-4.402C68.782,71.637,70.405,69.703,70.405,67.047z"/>
+	</g>
+</g>
+</svg>
