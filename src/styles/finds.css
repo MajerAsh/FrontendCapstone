@@ -145,9 +145,11 @@
 .badge--secret {
   background: radial-gradient(
     120% 120% at 20% 20%,
-    #cfd8dc 0,
+    #ffd863,
+    #a37c05,
+    #3d2e01 /* Grays: #cfd8dc 0,
     #90a4ae 60%,
-    #546e7a 100%
+    #546e7a 100%*/
   );
   color: #0b1418;
 }
