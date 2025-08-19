@@ -1,3 +1,5 @@
+/* find cards, badges and fact sheet*/
+
 .finds {
   width: min(960px, 100%);
   margin-inline: auto;
@@ -73,6 +75,7 @@
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
+
 .find-card:hover::before {
   opacity: 1;
 }
@@ -135,6 +138,32 @@
   75% {
     transform: rotate(2deg);
   }
+}
+
+/*LOCK BADGE*/
+/* Keep Secret:*/
+.badge--secret {
+  background: radial-gradient(
+    120% 120% at 20% 20%,
+    #cfd8dc 0,
+    #90a4ae 60%,
+    #546e7a 100%
+  );
+  color: #0b1418;
+}
+
+/* Public page: “kept secret” note */
+.secret-note {
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+/* secret badge lock icon */
+.badge--secret .lock-icon {
+  width: 23px;
+  height: 23px;
+  margin-right: 1px;
+  vertical-align: middle;
 }
 
 /* fact sheet */

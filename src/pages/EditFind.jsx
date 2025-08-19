@@ -30,6 +30,7 @@ export default function EditFind() {
     longitude: "",
     location: "",
     image_url: "",
+    hide_location: false,
   });
   const [file, setFile] = useState(null);
 
@@ -49,6 +50,7 @@ export default function EditFind() {
         longitude: find.longitude ?? "",
         location: find.location || "",
         image_url: find.image_url || "",
+        hide_location: !!find.hide_location,
       });
     }
   }, [find]);
@@ -112,13 +114,18 @@ export default function EditFind() {
 
   //controlled inputs
   function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData((s) => ({ ...s, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((s) => ({
+      ...s,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   }
+
   //file input
   function handleFile(e) {
     setFile(e.target.files?.[0] || null);
   }
+
   //send PUT with override path:
   async function handleSubmit(e) {
     e.preventDefault();
@@ -130,6 +137,7 @@ export default function EditFind() {
     if (formData.longitude !== "") fd.append("longitude", formData.longitude);
     if (formData.location) fd.append("location", formData.location);
     if (file) fd.append("photo", file);
+    fd.append("hide_location", formData.hide_location ? "true" : "false");
 
     const ok = await mutate(fd, `/finds/${id}`); //overridePath to the right endpoint
     if (ok) navigate("/my-finds"); //go back to list
@@ -220,7 +228,15 @@ export default function EditFind() {
               onChange={handleFile}
             />
           </label>
-
+          <label className="checkbox-row">
+            <input
+              type="checkbox"
+              name="hide_location"
+              checked={formData.hide_location}
+              onChange={handleChange}
+            />
+            Keep location secret
+          </label>
           <button disabled={saving}>Save Changes</button>
           {saveError && <output className="error">{saveError}</output>}
         </form>

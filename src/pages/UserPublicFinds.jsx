@@ -46,17 +46,25 @@ export default function UserPublicFinds() {
                   loading="lazy"
                 />
               )}
-
-              {find.location && (
+              {/*location/coords block*/}
+              {find.location && !find.hide_location && (
                 <p>
                   <strong>Location:</strong> {find.location}
                 </p>
               )}
-              {find.latitude != null && find.longitude != null && (
-                <p>
-                  <strong>Coords:</strong> {find.latitude}, {find.longitude}
+              {find.hide_location && (
+                <p className="secret-note">
+                  <strong>Location:</strong> kept secret
                 </p>
               )}
+
+              {find.latitude != null &&
+                find.longitude != null &&
+                !find.hide_location && (
+                  <p>
+                    <strong>Coords:</strong> {find.latitude}, {find.longitude}
+                  </p>
+                )}
 
               <SpeciesFacts name={find.species} />
             </section>

@@ -44,3 +44,39 @@ input[type="file"] {
   border-radius: 12px;
   border: 1px dashed rgba(255, 255, 255, 0.18);
 }
+
+/* Keep Secret: checkbox row for checkbox/label */
+.checkbox-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  margin-right: 3px;
+  user-select: none;
+  gap: 0.5rem;
+}
+
+/* Ensure checkboxes/radios don’t inherit 100% width from inputs */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Keep Secret: checkbox row for checkbox/label */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 12px 0;
+  user-select: none;
+}
+
+/* Ensure checkboxes/radios don’t inherit 100% width from the global input styles */
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}

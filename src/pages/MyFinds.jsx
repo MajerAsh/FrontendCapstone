@@ -37,7 +37,12 @@ export default function MyFinds() {
             className="find-card corner-sticker corner-sticker--mushroom"
           >
             <h2>{find.species}</h2>
-
+            {find.hide_location && (
+              <span className="badge badge--secret" title="Hidden from others">
+                <img src="/svgs/lock.svg" alt="Locked" className="lock-icon" />
+                Location Secret
+              </span>
+            )}
             <p>
               <strong>Date:</strong> {find.date_found}
             </p>

@@ -22,7 +22,9 @@ export default function CreateFind() {
     latitude: "",
     longitude: "",
     location: "",
+    hide_location: false,
   });
+
   const [file, setFile] = useState(null); //photo file
 
   //map state
@@ -32,9 +34,13 @@ export default function CreateFind() {
 
   //input handlers
   function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData((s) => ({ ...s, [name]: value })); //merge into state
+    const { name, value, type, checked } = e.target;
+    setFormData((s) => ({
+      ...s,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   }
+
   function handleFile(e) {
     setFile(e.target.files?.[0] || null);
   }
@@ -144,6 +150,7 @@ export default function CreateFind() {
     if (formData.longitude) fd.append("longitude", formData.longitude);
     if (formData.location) fd.append("location", formData.location);
     if (file) fd.append("photo", file); //must match upload.single("photo") on backend
+    fd.append("hide_location", formData.hide_location ? "true" : "false");
 
     const success = await mutate(fd); //useMutation passes isFormData to request()
     if (success) navigate("/my-finds");
@@ -235,7 +242,17 @@ export default function CreateFind() {
             onChange={handleFile}
           />
         </label>
-
+        <div className="checkbox-row">
+          <label>
+            <input
+              type="checkbox"
+              name="hide_location"
+              checked={formData.hide_location}
+              onChange={handleChange}
+            />
+            Keep location secret
+          </label>
+        </div>
         <button disabled={loading}>Create Find</button>
         {error && <output className="error">{error}</output>}
       </form>
