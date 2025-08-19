@@ -48,7 +48,7 @@ export default function UserPublicFinds() {
                   />
                 </div>
               )}
-              {/*location/coords block*/}
+              {/*location block*/}
               {find.location && !find.hide_location && (
                 <p>
                   <strong>Location:</strong> {find.location}

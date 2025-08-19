@@ -87,6 +87,7 @@ export default function Welcome() {
 
         return speciesMatch && dateMatch;
       })
+
       .forEach((find) => {
         if (find.longitude == null || find.latitude == null) return;
 
@@ -97,27 +98,19 @@ export default function Welcome() {
                 find.longitude
               ).toFixed(5)})`
             : "";
-
+        const imageHTML = find.image_url
+          ? `<img
+        src="${imgSrc(find.image_url)}"
+        alt="${(find.species ?? "Mushroom").replace(/"/g, "&quot;")} photo"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+     />`
+          : "";
         const popupContent = `
-          <strong>${find.species ?? "Unknown"}</strong><br/>
-          ${find.date_found ?? ""}<br/>
+          <h3>${find.species ?? "Unknown"}</h3><br/>
+          ${imageHTML}
+                ${find.date_found ?? ""}<br/>
           ${label || coords ? `${label || coords}<br/>` : ""}
-          ${
-            find.image_url
-              ? `<div style="margin:8px 0">
-                  <img
-                    src="${imgSrc(find.image_url)}"
-                    alt="${(find.species ?? "Mushroom").replace(
-                      /"/g,
-                      "&quot;"
-                    )} photo"
-                    style="max-width:80%;height:auto;border-radius:8px"
-                    loading="lazy"
-                    referrerpolicy="no-referrer"
-                  />
-                 </div>`
-              : ""
-          }
           ${
             token
               ? `<a href="/user/${find.username}/finds">${find.username}</a>`
@@ -128,8 +121,8 @@ export default function Welcome() {
         //v custom map marker v
         const marker = new mapboxgl.Marker({
           element: makeMushroomEl(),
-          anchor: "bottom", // tip sits on coords
-          offset: [0, 4], // tiny nudge
+          anchor: "bottom",
+          offset: [0, 4], // tip sits on coords
         })
 
           .setLngLat([find.longitude, find.latitude])
@@ -146,7 +139,6 @@ export default function Welcome() {
     }
   }, [finds, speciesFilter, fromDate, toDate, token]);
 
-  // UI (styled, no inline layout)
   return (
     <section className="welcome container forest-rays  corner-sticker corner-sticker--gnome">
       <h1>Welcome to Myco Map</h1>

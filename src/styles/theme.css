@@ -1,3 +1,5 @@
+/*background, mapbox, headers, Layout primitives,
+ buttons, grids, stickers*/
 :root {
   --bg: #0e1a14;
   --panel: #163323;
@@ -60,8 +62,12 @@ footer {
 
 /* Mapbox popup contrast */
 .mapboxgl-popup-content {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
   color: #0e2e0a;
-  background: #f8edd8;
+  background: #e2d9ca;
+  border-radius: 12px;
+  padding: 6px 8px;
   font-weight: 600;
   line-height: 1.25;
   text-align: center;
@@ -72,6 +78,43 @@ footer {
 }
 .mapboxgl-popup-close-button {
   color: #181818;
+  width: 18px;
+  height: 20px;
+}
+
+h3 {
+  margin: 0px;
+  margin-bottom: none;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: #0a2a14;
+  line-height: 1.1;
+}
+
+@media (min-width: 640px) {
+  .mapboxgl-popup-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: none;
+  }
+}
+
+/* image spacing & shape — replaces inline margin/size/radius */
+.mapboxgl-popup-content img {
+  display: block;
+  width: 95%;
+  max-width: 320px;
+  height: auto;
+  margin: 2px auto 8px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  align-self: center;
+}
+/* meta line */
+.mapboxgl-popup-content p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: #2d4a32;
 }
 
 /* Layout primitives */
