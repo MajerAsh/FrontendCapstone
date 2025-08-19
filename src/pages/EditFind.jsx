@@ -1,9 +1,10 @@
-import "../styles/EditFind.css";
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router";
 import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
 import mapboxgl from "mapbox-gl";
+import "../styles/theme.css";
+import "../styles/forms.css";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -32,12 +33,12 @@ export default function EditFind() {
   });
   const [file, setFile] = useState(null);
 
-  //mini maps
+  //maps
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
   const markerRef = useRef(null);
 
-  //fill state once Find loads
+  //fill form once Find loads
   useEffect(() => {
     if (find) {
       setFormData({
@@ -52,7 +53,7 @@ export default function EditFind() {
     }
   }, [find]);
 
-  //center on existing coords (if present) after find loads
+  // init map 1x
   useEffect(() => {
     if (mapRef.current || !mapContainerRef.current) return;
     mapRef.current = new mapboxgl.Map({
@@ -73,6 +74,7 @@ export default function EditFind() {
     });
   }, []);
 
+  //center on existing coords when available
   useEffect(() => {
     if (!find || !mapRef.current) return;
     if (find.longitude != null && find.latitude != null) {
@@ -91,9 +93,12 @@ export default function EditFind() {
       markerRef.current.setLngLat([lng, lat]);
     } else {
       //on drag end, copy coords into form state
-      markerRef.current = new mapboxgl.Marker({ draggable: true })
+      markerRef.current = new mapboxgl.Marker({
+        draggable: true,
+      })
         .setLngLat([lng, lat])
         .addTo(mapRef.current);
+
       markerRef.current.on("dragend", () => {
         const { lng, lat } = markerRef.current.getLngLat();
         setFormData((s) => ({
@@ -114,7 +119,7 @@ export default function EditFind() {
   function handleFile(e) {
     setFile(e.target.files?.[0] || null);
   }
-  //call PUT with override path:
+  //send PUT with override path:
   async function handleSubmit(e) {
     e.preventDefault();
     const fd = new FormData();
@@ -135,88 +140,91 @@ export default function EditFind() {
   if (!find) return <p>Not found.</p>; //404 case
 
   return (
-    <div className="edit-find">
-      <h1>Edit Find</h1>
-      <form onSubmit={handleSubmit} className="edit-find-form">
-        <label>
-          Species:
-          <input
-            name="species"
-            value={formData.species}
-            onChange={handleChange}
-            required
-          />
-        </label>
+    <div className="form-screen">
+      <div className="form-card">
+        <h1 className="form-title">Edit Find</h1>
 
-        <label>
-          Date Found:
-          <input
-            type="date"
-            name="date_found"
-            value={formData.date_found}
-            onChange={handleChange}
-            required
-          />
-        </label>
-
-        <label>
-          Description:
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </label>
-
-        <div className="edit-find-coords">
+        <form onSubmit={handleSubmit}>
           <label>
-            Latitude:
+            Species:
             <input
-              name="latitude"
-              type="number"
-              step="any"
-              value={formData.latitude}
+              name="species"
+              value={formData.species}
               onChange={handleChange}
-              placeholder="Click map to set"
+              required
             />
           </label>
+
           <label>
-            Longitude:
+            Date Found:
             <input
-              name="longitude"
-              type="number"
-              step="any"
-              value={formData.longitude}
+              type="date"
+              name="date_found"
+              value={formData.date_found}
               onChange={handleChange}
-              placeholder="Click map to set"
+              required
             />
           </label>
-        </div>
 
-        <div ref={mapContainerRef} className="edit-find-map" />
+          <label>
+            Description:
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </label>
 
-        <label>
-          Location label (optional):
-          <input
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-          />
-        </label>
+          <div className="two-col">
+            <label>
+              Latitude:
+              <input
+                name="latitude"
+                type="number"
+                step="any"
+                value={formData.latitude}
+                onChange={handleChange}
+                placeholder="Click map to set"
+              />
+            </label>
+            <label>
+              Longitude:
+              <input
+                name="longitude"
+                type="number"
+                step="any"
+                value={formData.longitude}
+                onChange={handleChange}
+                placeholder="Click map to set"
+              />
+            </label>
+          </div>
 
-        <label>
-          Replace photo (optional):
-          <input
-            type="file"
-            name="photo"
-            accept="image/*"
-            onChange={handleFile}
-          />
-        </label>
+          <div ref={mapContainerRef} className="mini-map" />
 
-        <button disabled={saving}>Save Changes</button>
-        {saveError && <output className="error">{saveError}</output>}
-      </form>
+          <label>
+            Location label (optional):
+            <input
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Replace photo (optional):
+            <input
+              type="file"
+              name="photo"
+              accept="image/*"
+              onChange={handleFile}
+            />
+          </label>
+
+          <button disabled={saving}>Save Changes</button>
+          {saveError && <output className="error">{saveError}</output>}
+        </form>
+      </div>
     </div>
   );
 }

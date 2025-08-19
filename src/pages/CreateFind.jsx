@@ -3,13 +3,16 @@ import { useEffect, useRef, useState } from "react";
 import useMutation from "../api/useMutation";
 import mapboxgl from "mapbox-gl";
 
+import "../styles/theme.css";
+import "../styles/forms.css";
+
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN; //mapbox token
 
 export default function CreateFind() {
   const navigate = useNavigate();
   const { mutate, error, loading } = useMutation("POST", "/finds", [
     "my-finds",
-  ]); //POST /finds via FormData
+  ]);
 
   //form state
   const [formData, setFormData] = useState({
@@ -66,7 +69,9 @@ export default function CreateFind() {
     if (markerRef.current) {
       markerRef.current.setLngLat([lng, lat]);
     } else {
-      markerRef.current = new mapboxgl.Marker({ draggable: true })
+      markerRef.current = new mapboxgl.Marker({
+        draggable: true,
+      })
         .setLngLat([lng, lat])
         .addTo(mapRef.current);
 
@@ -145,8 +150,8 @@ export default function CreateFind() {
   }
 
   return (
-    <>
-      <h1>Log a New Mushroom Find</h1>
+    <div className="form-screen">
+      <h1 className="form-title">Log a New Mushroom Find</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Species:
@@ -178,10 +183,7 @@ export default function CreateFind() {
           />
         </label>
 
-        {/* location inputs (optional for user) */}
-        <div
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}
-        >
+        <div className="two-col">
           <label>
             Latitude (optional):
             <input
@@ -206,22 +208,13 @@ export default function CreateFind() {
           </label>
         </div>
 
-        <div style={{ margin: "8px 0" }}>
+        <div className="helper">
           <button type="button" onClick={useMyLocation}>
             Use my location
           </button>
         </div>
 
-        {/* small map picker */}
-        <div
-          ref={mapContainerRef}
-          style={{
-            height: 260,
-            border: "1px solid #ccc",
-            borderRadius: 8,
-            marginBottom: 12,
-          }}
-        />
+        <div ref={mapContainerRef} className="mini-map" />
 
         <label>
           Location label (optional):
@@ -244,8 +237,8 @@ export default function CreateFind() {
         </label>
 
         <button disabled={loading}>Create Find</button>
-        {error && <output style={{ color: "red" }}>{error}</output>}
+        {error && <output className="error">{error}</output>}
       </form>
-    </>
+    </div>
   );
 }

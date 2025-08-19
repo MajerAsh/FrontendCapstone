@@ -29,14 +29,12 @@ export default function Navbar() {
           Home
         </NavLink>
 
-        {/* Always available */}
-        <NavLink to="/find-foragers" style={linkStyle}>
-          Find Foragers
-        </NavLink>
-
         {/* Only when logged in */}
         {token ? (
           <>
+            <NavLink to="/find-foragers" style={linkStyle}>
+              Find Foragers
+            </NavLink>
             <NavLink to="/create" style={linkStyle}>
               Create Find
             </NavLink>
@@ -48,7 +46,7 @@ export default function Navbar() {
             </button>
           </>
         ) : (
-          // Only when logged out
+          // availabe when logged out
           <div style={{ marginLeft: "auto", display: "flex", gap: 8 }}>
             <NavLink to="/login" style={linkStyle}>
               Log in

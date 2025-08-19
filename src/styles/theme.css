@@ -1,0 +1,192 @@
+:root {
+  --bg: #0e1a14;
+  --panel: #163323;
+  --panel-2: #1a3b28;
+  --ink: #e9fee7;
+  --ink-dim: #c9f3c6;
+  --muted: #8ad18e;
+  --accent: #ffce33;
+  --accent-2: #ff5a7a;
+  --accent-3: #6ad6ff;
+  --ok: #15c46c; /* edible */
+  --danger: #ff3657; /* deadly */
+  --card: #132c1f;
+  --shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+  --radius: 16px;
+}
+
+/* Base */
+html {
+  font-size: 16px;
+}
+body {
+  margin: 0;
+  font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--ink);
+  background: var(--bg);
+}
+/* full-bleed forest background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/bg/forest-2.jpg") center/cover no-repeat fixed;
+  z-index: -2;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.38));
+  z-index: -1;
+}
+header,
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Helper link (“Need an account? …”) */
+.helper a,
+.helper a:visited {
+  color: #6ad6ff;
+  font-weight: 800;
+}
+.helper a:hover {
+  filter: brightness(1.1);
+}
+
+/* Mapbox popup contrast */
+.mapboxgl-popup-content {
+  color: #0e2e0a;
+  background: #f8edd8;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+}
+.mapboxgl-popup-content a {
+  color: #0b6b0b;
+  text-decoration: underline;
+}
+.mapboxgl-popup-close-button {
+  color: #181818;
+}
+
+/* Layout primitives */
+.container {
+  width: min(960px, 100%);
+  margin-inline: auto;
+}
+.panel {
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Buttons */
+.button,
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 999px;
+  appearance: none;
+  border: 0;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 10px 16px;
+  font-weight: 700;
+  background: linear-gradient(180deg, var(--accent), #ffb300);
+  color: #2b1d00;
+  box-shadow: 0 4px 0 #cc9a00, 0 10px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  text-decoration: none;
+}
+
+.button:hover,
+button:hover {
+  transform: translateY(-2px);
+}
+.button:active,
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #cc9a00;
+}
+
+/* Danger variant for Delete */
+.button--danger {
+  background: linear-gradient(180deg, #ff5a7a, #d8193a);
+  color: #fff;
+  box-shadow: 0 4px 0 #9e1228, 0 10px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* Forms */
+input,
+textarea,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0f241a;
+  color: var(--ink);
+  outline: none;
+}
+label {
+  display: block;
+  font-weight: 700;
+  margin: 12px 0 6px;
+}
+output,
+.error {
+  color: var(--accent-2);
+}
+
+/* Grids */
+.grid {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .grid-sm-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 960px) {
+  .grid-md-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*stickers*/
+.corner-sticker {
+  position: relative;
+}
+.corner-sticker::after {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  right: -8px;
+  top: -8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  transform: rotate(1deg);
+}
+
+.corner-sticker--mushroom::after {
+  background-image: url("/svgs/boletepin.svg");
+  margin-top: 1rem;
+  margin-right: 2rem;
+}
+.corner-sticker--gnome::after {
+  background-image: url("/svgs/mush-4.svg");
+  transform: rotate(-8deg);
+}

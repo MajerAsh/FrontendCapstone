@@ -6,16 +6,20 @@ import { useApi } from "./ApiContext";
 export default function useMutation(method, resource, tagsToInvalidate) {
   const { request, invalidateTags } = useApi();
 
+  //local state to track mutation results
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  //performs the mutation (API request)
   const mutate = async (body, overridePath) => {
     setLoading(true);
     setError(null);
 
     try {
+      //shecks if we're sending FormData (skip JSON stringify + headers)
       const isFormData = body instanceof FormData;
+      //fetch options: always include method, include body if provided
       const options = {
         method,
         ...(body !== null && body !== undefined
@@ -29,7 +33,13 @@ export default function useMutation(method, resource, tagsToInvalidate) {
         isFormData
       );
       setData(result);
-      invalidateTags?.(tagsToInvalidate || []);
+      invalidateTags?.(
+        Array.isArray(tagsToInvalidate)
+          ? tagsToInvalidate
+          : tagsToInvalidate
+          ? [tagsToInvalidate]
+          : []
+      );
       return true;
     } catch (e) {
       console.error(e);

@@ -42,62 +42,60 @@ export default function SpeciesFacts({ name }) {
 
   if (!name || !name.trim()) return null;
 
-  // tiny badge logic
-  const badge = facts?.deadly ? "DEADLY" : facts?.edible ? "EDIBLE" : "UNKNOWN";
-  const badgeStyle = {
-    display: "inline-block",
-    padding: "2px 8px",
-    borderRadius: 12,
-    fontSize: 12,
-    fontWeight: 600,
-    lineHeight: 1.6,
-    background: facts?.deadly ? "#ffe5e5" : facts?.edible ? "#e8f7e8" : "#eee",
-    color: facts?.deadly ? "#b00020" : facts?.edible ? "#0b6b0b" : "#555",
-    border: "1px solid rgba(0,0,0,0.08)",
-    marginTop: 4,
-  };
-
   return (
-    <div style={{ marginTop: 6 }}>
-      <span style={badgeStyle}>{loading ? "Checking..." : badge}</span>
-      {err ? (
-        <div style={{ color: "red", fontSize: 12, marginTop: 4 }}>{err}</div>
-      ) : null}
+    <div className="sf">
+      <span
+        className={
+          facts?.deadly
+            ? "badge badge--deadly"
+            : facts?.edible
+            ? "badge badge--edible"
+            : "badge badge--unknown"
+        }
+      >
+        {loading
+          ? "Checking..."
+          : facts?.deadly
+          ? "DEADLY"
+          : facts?.edible
+          ? "EDIBLE"
+          : "UNKNOWN"}
+      </span>
 
-      {facts ? (
-        <details style={{ marginTop: 6 }}>
-          <summary style={{ cursor: "pointer", fontSize: 13 }}>
-            Fact sheet
-          </summary>
-          <div style={{ fontSize: 13, marginTop: 6 }}>
-            <div>
-              <strong>Scientific:</strong> {facts.scientific_name}
-            </div>
+      {err && <div className="error">{err}</div>}
+
+      {facts && (
+        <div className="factsheet">
+          <dl>
+            <dt>Scientific</dt>
+            <dd>{facts.scientific_name}</dd>
             {facts.notes && (
-              <div style={{ marginTop: 4 }}>
-                <strong>Notes:</strong> {facts.notes}
-              </div>
+              <>
+                <dt>Notes</dt>
+                <dd>{facts.notes}</dd>
+              </>
             )}
-            {Array.isArray(facts.deadly_lookalikes) &&
-              facts.deadly_lookalikes.length > 0 && (
-                <div style={{ marginTop: 4 }}>
-                  <strong>Deadly look‑alikes:</strong>{" "}
-                  {facts.deadly_lookalikes.join(", ")}
-                </div>
-              )}
-            {Array.isArray(facts.toxins) && facts.toxins.length > 0 && (
-              <div style={{ marginTop: 4 }}>
-                <strong>Toxins:</strong> {facts.toxins.join(", ")}
-              </div>
+            {!!facts.deadly_lookalikes?.length && (
+              <>
+                <dt>Deadly look-alikes</dt>
+                <dd>{facts.deadly_lookalikes.join(", ")}</dd>
+              </>
+            )}
+            {!!facts.toxins?.length && (
+              <>
+                <dt>Toxins</dt>
+                <dd>{facts.toxins.join(", ")}</dd>
+              </>
             )}
             {facts.syndrome && (
-              <div style={{ marginTop: 4 }}>
-                <strong>Syndrome:</strong> {facts.syndrome}
-              </div>
+              <>
+                <dt>Syndrome</dt>
+                <dd>{facts.syndrome}</dd>
+              </>
             )}
-          </div>
-        </details>
-      ) : null}
+          </dl>
+        </div>
+      )}
     </div>
   );
 }

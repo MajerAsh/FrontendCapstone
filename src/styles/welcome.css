@@ -1,0 +1,39 @@
+.welcome {
+  width: min(960px, 100%);
+  margin-inline: auto;
+  padding: 16px;
+}
+.welcome h1 {
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  margin: 8px 0 12px;
+}
+.welcome .filter {
+  margin-bottom: 12px;
+}
+
+/* Mapbox default popup image */
+.mapboxgl-popup-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.map-wrap {
+  height: 480px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow);
+  margin-top: 16px;
+}
+
+/*custom 🍄 map marker*/
+.marker-mushroom img {
+  width: 31px;
+  height: 31px;
+  display: block;
+  pointer-events: none;
+}
+.marker-mushroom {
+  transform: translateY(-2px);
+}
