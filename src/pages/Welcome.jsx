@@ -107,7 +107,7 @@ export default function Welcome() {
      />`
           : "";
         const popupContent = `
-          <h3>${find.species ?? "Unknown"}</h3><br/>
+          <h3>${find.species ?? "Unknown"}</h3>
           ${imageHTML}
                 ${find.date_found ?? ""}<br/>
           ${label || coords ? `${label || coords}<br/>` : ""}
@@ -117,6 +117,33 @@ export default function Welcome() {
               : ""
           }
         `;
+        // anchor based on where the marker is on screen
+        const pt = map.current.project([find.longitude, find.latitude]);
+        const { width, height } = map.current
+          .getContainer()
+          .getBoundingClientRect();
+        let anchor = "bottom";
+        if (pt.y < height * 0.33) anchor = "top";
+        if (pt.x < width * 0.33) anchor += "-right";
+        else if (pt.x > width * 0.66) anchor += "-left";
+
+        //compact popup
+        const popup = new mapboxgl.Popup({
+          anchor,
+          autoPan: true,
+          maxWidth: "165px",
+          maxHeight: "160px",
+          offset: {
+            top: [0, 12],
+            "top-left": [8, 12],
+            "top-right": [-8, 12],
+            bottom: [0, -4],
+            "bottom-left": [8, -4],
+            "bottom-right": [-8, -4],
+            left: [12, 0],
+            right: [-12, 0],
+          },
+        }).setHTML(popupContent);
 
         //v custom map marker v
         const marker = new mapboxgl.Marker({
@@ -126,7 +153,7 @@ export default function Welcome() {
         })
 
           .setLngLat([find.longitude, find.latitude])
-          .setPopup(new mapboxgl.Popup().setHTML(popupContent))
+          .setPopup(popup)
           .addTo(map.current);
 
         markers.current.push(marker);

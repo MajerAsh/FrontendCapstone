@@ -135,7 +135,8 @@ export default function EditFind() {
     if (formData.description) fd.append("description", formData.description);
     if (formData.latitude !== "") fd.append("latitude", formData.latitude);
     if (formData.longitude !== "") fd.append("longitude", formData.longitude);
-    if (formData.location) fd.append("location", formData.location);
+    //if (formData.location) fd.append("location", formData.location);
+    fd.append("location", formData.location ?? "");
     if (file) fd.append("photo", file);
     fd.append("hide_location", formData.hide_location ? "true" : "false");
 
