@@ -1,3 +1,4 @@
+/* Forms, mini map, keep secret, calendar*/
 .form-screen {
   width: min(720px, 100%);
   margin-inline: auto;
@@ -72,8 +73,7 @@ input[type="radio"] {
   margin: 12px 0;
   user-select: none;
 }
-
-/* Ensure checkboxes/radios don’t inherit 100% width from the global input styles */
+/*checkboxes/radio overrides global input styles */
 input[type="checkbox"],
 input[type="radio"] {
   width: auto;

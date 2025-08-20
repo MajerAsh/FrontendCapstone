@@ -11,6 +11,32 @@ export default function MyFinds() {
   const { data: finds, loading, error } = useQuery("/finds/me", "my-finds");
   //v sets up mutation to delete a find, invalidates "my-finds" after run
   const { mutate: deleteFind } = useMutation("DELETE", null, ["my-finds"]);
+  //gamebadge
+  const myBadge = finds?.[0]?.badge ?? null;
+
+  const badgeMeta = (label) => {
+    switch (label) {
+      case "Myco Master":
+        return {
+          src: "/svgs/MycoMaster.svg",
+          title: "The Myco Master badge!\nMyco masters have 25+ distinct finds",
+        };
+      case "Seasoned Forager":
+        return {
+          src: "/svgs/seasonedforager.svg",
+          title:
+            "The Seasoned Forager badge!\nSeasoned foragers have 10+ distinct finds",
+        };
+      case "Fruiting":
+        return {
+          src: "/svgs/fruiting.svg",
+          title:
+            "The Fruiting Forager badge!\nFruiting foragers have five or more distinct finds",
+        };
+      default:
+        return null;
+    }
+  };
 
   //v called when delete btn is clicked
   async function handleDelete(findId) {
@@ -23,7 +49,21 @@ export default function MyFinds() {
 
   return (
     <section className="finds container forest-rays">
-      <h1>My Mushroom Finds</h1>
+      <div className="header-row">
+        <h1 className="header-title">My Mushroom Finds</h1>
+        {myBadge &&
+          (() => {
+            const m = badgeMeta(myBadge);
+            return m ? (
+              <img
+                className="user-badge"
+                src={m.src}
+                alt={`${myBadge} badge`}
+                title={m.title}
+              />
+            ) : null;
+          })()}
+      </div>
 
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}

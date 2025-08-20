@@ -1,5 +1,6 @@
 /*background, mapbox, headers, Layout primitives,
- buttons, grids, stickers*/
+buttons, grids, stickers*/
+
 :root {
   --bg: #0e1a14;
   --panel: #163323;
@@ -258,19 +259,34 @@ output,
   }
 }
 
-/* small pill for user badges */
-.user-badge {
+/* GAME BADGE Header w badge pinned to the right */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* title on left, badge on far right */
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.header-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  line-height: 1.15;
+}
+
+/* Badge SVG image */
+img.user-badge {
+  width: 50px;
+  height: 50px;
+  flex: 0 0 auto;
   display: inline-block;
-  margin-left: 8px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1.4;
-  background: linear-gradient(180deg, #ffd96a, #ffb300);
-  color: #2b1d00;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  vertical-align: middle;
-  white-space: nowrap;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* larger on wider screens */
+@media (min-width: 640px) {
+  .user-badge {
+    width: 32px;
+    height: 32px;
+  }
 }
