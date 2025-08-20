@@ -42,7 +42,7 @@ export default function UserPublicFinds() {
   return (
     <section className="finds container forest-rays">
       <div className="header-row">
-        <h1 className="header-title">My Mushroom Finds</h1>
+        <h1 className="header-title">{`${username}'s Finds`}</h1>
         {myBadge &&
           (() => {
             const m = badgeMeta(myBadge);

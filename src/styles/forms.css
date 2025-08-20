@@ -80,3 +80,18 @@ input[type="radio"] {
   display: inline-block;
   vertical-align: middle;
 }
+
+/*native calendar color chng*/
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: sepia(1) saturate(6) hue-rotate(340deg) brightness(1.1) contrast(1.1)
+    drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+  color: yellow;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}
+
+/* (Optional) nudge the text so it doesn't overlap the icon */
+input[type="date"] {
+  padding-right: 2.25rem;
+}
