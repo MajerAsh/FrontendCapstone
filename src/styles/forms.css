@@ -81,17 +81,26 @@ input[type="radio"] {
   vertical-align: middle;
 }
 
-/*native calendar color chng*/
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: sepia(1) saturate(6) hue-rotate(340deg) brightness(1.1) contrast(1.1)
-    drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
-  color: yellow;
-  width: 1.5rem;
-  height: 1.5rem;
-  cursor: pointer;
+/*Tiny calendar, big work*/
+input[type="date"] {
+  padding-right: 2.25rem; /*input room for the icon */
 }
 
-/* (Optional) nudge the text so it doesn't overlap the icon */
-input[type="date"] {
-  padding-right: 2.25rem;
+input[type="date"]::-webkit-calendar-picker-indicator {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  cursor: pointer;
+  background: none; /* remove UA layer */
+  background-color: #ffce33; /* cant cut this!*/
+  /* mask w svg but clickable */
+  -webkit-mask: url("/svgs/calendaryel.svg") no-repeat center / 1.1rem 1.1rem;
+  mask: url("/svgs/calendaryel.svg") no-repeat center / 1.75rem 1.75rem;
+}
+
+/* Fallback for servers that dont support masked indicator */
+@supports not (-webkit-mask: url("")) {
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url("/svgs/calendaryel.svg") no-repeat center / 1.1rem 1.1rem;
+  }
 }
