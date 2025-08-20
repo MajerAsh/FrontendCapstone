@@ -43,6 +43,7 @@ export default function FindForagers() {
           {(users ?? []).map((u) => (
             <li key={u.id}>
               <Link to={`/user/${u.username}/finds`}>{u.username}</Link>
+              {u.badge && <span className="user-badge">{u.badge}</span>}
               {u.city || u.state
                 ? ` — ${[u.city, u.state].filter(Boolean).join(", ")}`
                 : ""}

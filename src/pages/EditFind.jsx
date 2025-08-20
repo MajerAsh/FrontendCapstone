@@ -144,14 +144,17 @@ export default function EditFind() {
     if (ok) navigate("/my-finds"); //go back to list
   }
 
-  if (loading) return <p>Loading...</p>;
+  /* if (loading) return <p>Loading...</p>;
   if (error) return <p className="error">{error}</p>;
-  if (!find) return <p>Not found.</p>; //404 case
+  if (!find) return <p>Not found.</p>; //404 case*/
 
   return (
     <div className="form-screen">
       <div className="form-card">
         <h1 className="form-title">Edit Find</h1>
+        {loading && <p>Loading…</p>}
+        {error && <p className="error">{error}</p>}
+        {!loading && !find && <p>Not found.</p>}
 
         <form onSubmit={handleSubmit}>
           <label>

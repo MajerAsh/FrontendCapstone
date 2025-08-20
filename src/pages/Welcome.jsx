@@ -113,10 +113,14 @@ export default function Welcome() {
           ${label || coords ? `${label || coords}<br/>` : ""}
           ${
             token
-              ? `<a href="/user/${find.username}/finds">${find.username}</a>`
+              ? `<a href="/user/${find.username}/finds">${find.username}</a>${
+                  find.badge
+                    ? ` <span class="user-badge">${find.badge}</span>`
+                    : ""
+                }`
               : ""
           }
-        `;
+`;
         // anchor based on where the marker is on screen
         const pt = map.current.project([find.longitude, find.latitude]);
         const { width, height } = map.current

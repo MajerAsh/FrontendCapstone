@@ -97,7 +97,7 @@ footer {
 
 h3 {
   margin: 0px;
-  margin-top: 0.8rem;
+  margin-top: 0.9rem;
   margin-bottom: none !important;
   font-size: 25px;
   font-weight: 900;
@@ -227,7 +227,7 @@ output,
   content: "";
   position: absolute;
   width: 55px;
-  height: 55px;
+  height: 57px;
   right: -8px;
   top: -8px;
   background-size: contain;
@@ -238,10 +238,39 @@ output,
 
 .corner-sticker--mushroom::after {
   background-image: url("/svgs/mushroom.png");
-  margin-top: 1rem;
-  margin-right: 2rem;
+  top: 1rem;
+  right: 2rem;
 }
 .corner-sticker--gnome::after {
   background-image: url("/svgs/mush-4.svg");
   transform: rotate(-8deg);
+  right: 15px;
+  top: 1px;
+}
+
+/* mush-4 on little screens*/
+@media (max-width: 768px) {
+  .corner-sticker--gnome::after {
+    right: 5px;
+    top: 5px;
+    width: 55px;
+    height: 55px;
+  }
+}
+
+/* small pill for user badges */
+.user-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+  background: linear-gradient(180deg, #ffd96a, #ffb300);
+  color: #2b1d00;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  vertical-align: middle;
+  white-space: nowrap;
 }

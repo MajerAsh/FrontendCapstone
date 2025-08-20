@@ -46,7 +46,7 @@
 }
 div.mapboxgl-popup-content {
   max-width: 220px;
-  max-height: 230px !important;
+  max-height: 225px !important;
   overflow: auto;
   word-break: break-word;
   color: #0e2e0a;
@@ -58,7 +58,7 @@ div.mapboxgl-popup-content {
 
 .mapboxgl-popup-content img {
   display: block;
-  width: 90%;
+  width: 80%;
   height: auto;
   margin: 0px auto 8px; /* centers image and tightens space under h3 */
   border-radius: 8px;
