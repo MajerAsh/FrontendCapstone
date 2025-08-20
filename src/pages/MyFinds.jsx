@@ -19,19 +19,20 @@ export default function MyFinds() {
       case "Myco Master":
         return {
           src: "/svgs/MycoMaster.svg",
-          title: "The Myco Master badge!\nMyco masters have 25+ distinct finds",
+          title:
+            "The Myco Master badge!\nMyco masters have\n25+ distinct finds",
         };
       case "Seasoned Forager":
         return {
           src: "/svgs/seasonedforager.svg",
           title:
-            "The Seasoned Forager badge!\nSeasoned foragers have 10+ distinct finds",
+            "The Seasoned Forager badge!\nSeasoned foragers have\n10+ distinct finds",
         };
       case "Fruiting":
         return {
           src: "/svgs/fruiting.svg",
           title:
-            "The Fruiting Forager badge!\nFruiting foragers have five or more distinct finds",
+            "The Fruiting Forager badge!\nFruiting foragers have five or\nmore distinct finds",
         };
       default:
         return null;
