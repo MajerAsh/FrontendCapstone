@@ -1,3 +1,6 @@
+/*background, mapbox, headers, Layout primitives,
+buttons, grids, stickers*/
+
 :root {
   --bg: #0e1a14;
   --panel: #163323;
@@ -58,20 +61,73 @@ footer {
   filter: brightness(1.1);
 }
 
-/* Mapbox popup contrast */
+/* Mapbox popup */
 .mapboxgl-popup-content {
+  overflow: auto;
+  margin-top: 2rem;
+  max-width: 220px;
+  margin-bottom: 0.2rem;
   color: #0e2e0a;
-  background: #f8edd8;
+  background: #e2d9ca;
+  border-radius: 12px;
+  padding: 10px 8px;
   font-weight: 600;
-  line-height: 1.25;
   text-align: center;
 }
 .mapboxgl-popup-content a {
   color: #0b6b0b;
   text-decoration: underline;
 }
+/*CLOSE BUTTON*/
 .mapboxgl-popup-close-button {
-  color: #181818;
+  width: 5px !important;
+  height: 20px;
+  font-size: 16px;
+}
+
+.mapboxgl-popup-close-button:focus,
+.mapboxgl-popup-close-button:active {
+  outline: none !important;
+  border: none !important;
+}
+
+.mapboxgl-popup-close-button:focus,
+.mapboxgl-popup-close-button:active {
+  border: none !important;
+}
+
+h3 {
+  margin: 0px;
+  margin-top: 0.9rem;
+  margin-bottom: none !important;
+  font-size: 25px;
+  font-weight: 900;
+  color: #0a2a14;
+}
+
+@media (min-width: 640px) {
+  .mapboxgl-popup-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: none;
+  }
+}
+
+/* image spacing & shape — replaces inline margin/size/radius */
+.mapboxgl-popup-content img {
+  display: block;
+  width: 95%;
+  max-width: 320px;
+  max-height: 160px;
+  margin: 2px auto 8px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  align-self: center;
+}
+/* meta line */
+.mapboxgl-popup-content p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: #2d4a32;
 }
 
 /* Layout primitives */
@@ -172,7 +228,7 @@ output,
   content: "";
   position: absolute;
   width: 55px;
-  height: 55px;
+  height: 57px;
   right: -8px;
   top: -8px;
   background-size: contain;
@@ -182,11 +238,63 @@ output,
 }
 
 .corner-sticker--mushroom::after {
-  background-image: url("/svgs/boletepin.svg");
-  margin-top: 1rem;
-  margin-right: 2rem;
+  background-image: url("/svgs/mushroom.png");
+  top: 1rem;
+  right: 2rem;
 }
 .corner-sticker--gnome::after {
   background-image: url("/svgs/mush-4.svg");
   transform: rotate(-8deg);
+  right: 15px;
+  top: 1px;
+}
+
+/* mush-4 on little screens*/
+@media (max-width: 768px) {
+  .corner-sticker--gnome::after {
+    right: 5px;
+    top: 5px;
+    width: 55px;
+    height: 55px;
+  }
+}
+
+/* GAME BADGE Header w badge pinned to the right */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* title on left, badge on far right */
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.header-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  line-height: 1.15;
+}
+
+/* Game badge SVG */
+img.user-badge {
+  width: 65px;
+  height: 65px;
+  margin-right: 2rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* larger on wider screens */
+@media (min-width: 640px) {
+  .user-badge {
+    width: 32px;
+    height: 32px;
+  }
+}
+/*in text icon for find forager*/
+.user-badge-img {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }

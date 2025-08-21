@@ -87,6 +87,7 @@ export default function Welcome() {
 
         return speciesMatch && dateMatch;
       })
+
       .forEach((find) => {
         if (find.longitude == null || find.latitude == null) return;
 
@@ -97,43 +98,62 @@ export default function Welcome() {
                 find.longitude
               ).toFixed(5)})`
             : "";
-
+        const imageHTML = find.image_url
+          ? `<img
+        src="${imgSrc(find.image_url)}"
+        alt="${(find.species ?? "Mushroom").replace(/"/g, "&quot;")} photo"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+     />`
+          : "";
         const popupContent = `
-          <strong>${find.species ?? "Unknown"}</strong><br/>
-          ${find.date_found ?? ""}<br/>
+          <h3>${find.species ?? "Unknown"}</h3>
+          ${imageHTML}
+                ${find.date_found ?? ""}<br/>
           ${label || coords ? `${label || coords}<br/>` : ""}
-          ${
-            find.image_url
-              ? `<div style="margin:8px 0">
-                  <img
-                    src="${imgSrc(find.image_url)}"
-                    alt="${(find.species ?? "Mushroom").replace(
-                      /"/g,
-                      "&quot;"
-                    )} photo"
-                    style="max-width:80%;height:auto;border-radius:8px"
-                    loading="lazy"
-                    referrerpolicy="no-referrer"
-                  />
-                 </div>`
-              : ""
-          }
           ${
             token
               ? `<a href="/user/${find.username}/finds">${find.username}</a>`
               : ""
           }
-        `;
+ `;
+        // anchor based on where the marker is on screen
+        const pt = map.current.project([find.longitude, find.latitude]);
+        const { width, height } = map.current
+          .getContainer()
+          .getBoundingClientRect();
+        let anchor = "bottom";
+        if (pt.y < height * 0.33) anchor = "top";
+        if (pt.x < width * 0.33) anchor += "-right";
+        else if (pt.x > width * 0.66) anchor += "-left";
+
+        //compact popup
+        const popup = new mapboxgl.Popup({
+          anchor,
+          autoPan: true,
+          maxWidth: "165px",
+          maxHeight: "160px",
+          offset: {
+            top: [0, 12],
+            "top-left": [8, 12],
+            "top-right": [-8, 12],
+            bottom: [0, -4],
+            "bottom-left": [8, -4],
+            "bottom-right": [-8, -4],
+            left: [12, 0],
+            right: [-12, 0],
+          },
+        }).setHTML(popupContent);
 
         //v custom map marker v
         const marker = new mapboxgl.Marker({
           element: makeMushroomEl(),
-          anchor: "bottom", // tip sits on coords
-          offset: [0, 4], // tiny nudge
+          anchor: "bottom",
+          offset: [0, 4], // tip sits on coords
         })
 
           .setLngLat([find.longitude, find.latitude])
-          .setPopup(new mapboxgl.Popup().setHTML(popupContent))
+          .setPopup(popup)
           .addTo(map.current);
 
         markers.current.push(marker);
@@ -146,10 +166,9 @@ export default function Welcome() {
     }
   }, [finds, speciesFilter, fromDate, toDate, token]);
 
-  // UI (styled, no inline layout)
   return (
-    <section className="welcome container forest-rays  corner-sticker corner-sticker--mushroom">
-      <h1>Welcome to MycoMap</h1>
+    <section className="welcome container forest-rays  corner-sticker corner-sticker--gnome">
+      <h1>Welcome to Myco Map</h1>
 
       {/* Filters */}
       <div className="grid">

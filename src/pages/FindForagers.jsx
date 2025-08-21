@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useQuery from "../api/useQuery";
 import { Link } from "react-router"; //react router's Link component for navigation
+import BadgePill from "../components/BadgePill";
 
 export default function FindForagers() {
   //literal search term used in the api request ^
@@ -43,6 +44,7 @@ export default function FindForagers() {
           {(users ?? []).map((u) => (
             <li key={u.id}>
               <Link to={`/user/${u.username}/finds`}>{u.username}</Link>
+              <BadgePill badge={u.badge} />
               {u.city || u.state
                 ? ` — ${[u.city, u.state].filter(Boolean).join(", ")}`
                 : ""}

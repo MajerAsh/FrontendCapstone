@@ -1,3 +1,4 @@
+/* Forms, mini map, keep secret, calendar*/
 .form-screen {
   width: min(720px, 100%);
   margin-inline: auto;
@@ -72,11 +73,34 @@ input[type="radio"] {
   margin: 12px 0;
   user-select: none;
 }
-
-/* Ensure checkboxes/radios don’t inherit 100% width from the global input styles */
+/*checkboxes/radio overrides global input styles */
 input[type="checkbox"],
 input[type="radio"] {
   width: auto;
   display: inline-block;
   vertical-align: middle;
+}
+
+/*Tiny calendar, big work*/
+input[type="date"] {
+  padding-right: 2.25rem; /*input room for the icon */
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  cursor: pointer;
+  background: none; /* remove UA layer */
+  background-color: #ffce33; /* cant cut this!*/
+  /* mask w svg but clickable */
+  -webkit-mask: url("/svgs/calendaryel.svg") no-repeat center / 1.1rem 1.1rem;
+  mask: url("/svgs/calendaryel.svg") no-repeat center / 1.75rem 1.75rem;
+}
+
+/* Fallback for servers that dont support masked indicator */
+@supports not (-webkit-mask: url("")) {
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url("/svgs/calendaryel.svg") no-repeat center / 1.1rem 1.1rem;
+  }
 }

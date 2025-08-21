@@ -21,6 +21,23 @@
   }
 }
 
+/* img sizing for cards */
+:root {
+  /* tweak these to taste */
+  --thumb-ratio: 4 / 3; /* 1/1, 3/2, 16/9... */
+  --thumb-max-h: 220px; /* cap the media height */
+}
+@media (min-width: 680px) {
+  :root {
+    --thumb-max-h: 240px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --thumb-max-h: 260px;
+  }
+}
+
 .find-card {
   background: var(--card);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -29,7 +46,7 @@
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
-  /*anchor btns*/
+  /*anchor btns.actions*/
   display: flex;
   flex-direction: column;
   min-height: 260px;
@@ -43,12 +60,23 @@
   color: var(--ink-dim);
 }
 
-.find-card img {
+.find-card .media {
+  aspect-ratio: var(--thumb-ratio);
+  max-height: var(--thumb-max-h);
   width: 100%;
-  height: auto;
+  overflow: hidden;
   border-radius: 12px;
-  display: block;
+  background: #0f241a;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 8px 0;
+}
+
+/* "contain the photo"/ dont crop */
+.find-card .media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain; /* use 'contain' if you prefer no cropping */
 }
 
 .find-card .actions {
@@ -151,18 +179,45 @@
 /*LOCK BADGE*/
 /* Keep Secret:*/
 .badge--secret {
-  background: radial-gradient(
-    120% 120% at 20% 20%,
-    #ffd863,
-    #a37c05,
-    #3d2e01 /* Grays: #cfd8dc 0,
-    #90a4ae 60%,
-    #546e7a 100%*/
-  );
-  color: #0b1418;
+  width: max-content;
+  align-self: flex-start;
+
+  background: transparent;
+  color: #ffd863;
+  border: 1px solid rgba(255, 216, 99, 0.45);
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+
+  position: relative; /*glow */
+  z-index: 0;
 }
 
-/* Public page: “kept secret” note */
+.badge--secret::before {
+  content: "";
+  position: absolute;
+  inset: -1px; /* tiny outside bleed so glow reads crisply */
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 206, 51, 0.55),
+    rgba(255, 90, 122, 0.45),
+    rgba(106, 214, 255, 0.45)
+  );
+  /* same mask as in card glow */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  filter: blur(0.3px);
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* "location secret”*/
 .secret-note {
   color: var(--ink-dim);
   font-style: italic;
@@ -170,8 +225,8 @@
 
 /* secret badge lock icon */
 .badge--secret .lock-icon {
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
   margin-right: 1px;
   vertical-align: middle;
 }

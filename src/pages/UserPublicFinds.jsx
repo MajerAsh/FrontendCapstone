@@ -13,10 +13,50 @@ export default function UserPublicFinds() {
     loading,
     error,
   } = useQuery(`/users/${username}/finds`, "user-finds");
+  const myBadge = finds?.[0]?.badge ?? null;
+
+  const badgeMeta = (label) => {
+    switch (label) {
+      case "Myco Master":
+        return {
+          src: "/svgs/MycoMaster.svg",
+          title:
+            "The Myco Master badge!\nMyco masters have\n25+ distinct finds",
+        };
+      case "Seasoned Forager":
+        return {
+          src: "/svgs/seasonedforager.svg",
+          title:
+            "The Seasoned Forager badge!\nSeasoned foragers have 10+\ndistinct finds",
+        };
+      case "Fruiting":
+        return {
+          src: "/svgs/fruiting.svg",
+          title:
+            "The Fruiting Forager badge!\nFruiting foragers have five or\nmore distinct finds",
+        };
+      default:
+        return null;
+    }
+  };
 
   return (
     <section className="finds container forest-rays">
-      <h1>{`${username}'s Finds`}</h1>
+      <div className="header-row">
+        <h1 className="header-title">{`${username}'s Finds`}</h1>
+        {myBadge &&
+          (() => {
+            const m = badgeMeta(myBadge);
+            return m ? (
+              <img
+                className="user-badge"
+                src={m.src}
+                alt={`${myBadge} badge`}
+                title={m.title}
+              />
+            ) : null;
+          })()}
+      </div>
 
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
@@ -36,17 +76,19 @@ export default function UserPublicFinds() {
               </p>
 
               {find.image_url && (
-                <img
-                  src={
-                    find.image_url?.startsWith("http")
-                      ? find.image_url
-                      : `${import.meta.env.VITE_API_URL}${find.image_url}`
-                  }
-                  alt={`${find.species ?? "Mushroom"} photo`}
-                  loading="lazy"
-                />
+                <div className="media">
+                  <img
+                    src={
+                      find.image_url?.startsWith("http")
+                        ? find.image_url
+                        : `${import.meta.env.VITE_API_URL}${find.image_url}`
+                    }
+                    alt={`${find.species ?? "Mushroom"} photo`}
+                    loading="lazy"
+                  />
+                </div>
               )}
-              {/*location/coords block*/}
+              {/*location block*/}
               {find.location && !find.hide_location && (
                 <p>
                   <strong>Location:</strong> {find.location}
