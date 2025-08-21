@@ -143,6 +143,7 @@ export default function Welcome() {
             left: [12, 0],
             right: [-12, 0],
           },
+          closeButton: false,
         }).setHTML(popupContent);
 
         //v custom map marker v

@@ -58,7 +58,7 @@ div.mapboxgl-popup-content {
 
 .map-wrap .mapboxgl-popup-content {
   max-width: 180px;
-  max-height: none;
+  max-height: 245px;
   overflow: visible;
 }
 
