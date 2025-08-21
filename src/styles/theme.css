@@ -65,7 +65,7 @@ footer {
 .mapboxgl-popup-content {
   overflow: auto;
   margin-top: 2rem;
-  max-width: 220px;
+  max-width: 2450px;
   margin-bottom: 0.2rem;
   color: #0e2e0a;
   background: #e2d9ca;
@@ -77,6 +77,7 @@ footer {
 .mapboxgl-popup-content a {
   color: #0b6b0b;
   text-decoration: underline;
+  margin-bottom: 0.5rem;
 }
 /*CLOSE BUTTON*/
 .mapboxgl-popup-close-button {
