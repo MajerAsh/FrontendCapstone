@@ -100,7 +100,10 @@ export default function MyFinds() {
               </div>
             )}
             {find.hide_location && (
-              <span className="badge badge--secret" title="Hidden from others">
+              <span
+                className="badge badge--secret"
+                title="Location is hidden to protect sensitive habitats. Only you can see the exact coordinates."
+              >
                 <img src="/svgs/lock.svg" alt="Locked" className="lock-icon" />
                 Location Secret
               </span>
