@@ -128,7 +128,7 @@ export default function CreateFind() {
     );
   }
 
-  //mapbox reverse geocoding (optional)
+  //mapbox reverse geocoding
   async function reverseGeocode(lng, lat) {
     const token = import.meta.env.VITE_MAPBOX_TOKEN;
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${token}&limit=1`;
@@ -158,93 +158,107 @@ export default function CreateFind() {
 
   return (
     <div className="form-screen">
-      <h1 className="form-title">Log a New Mushroom Find</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Species:
-          <input
-            name="species"
-            value={formData.species}
-            onChange={handleChange}
-            required
-          />
-        </label>
+      <h1 className="form-title" id="create-find-title">
+        Log a New Mushroom Find
+      </h1>
+      <form
+        onSubmit={handleSubmit}
+        aria-label="Log a new mushroom find"
+        role="form"
+        aria-labelledby="create-find-title"
+      >
+        <label htmlFor="create-species">Species:</label>
+        <input
+          id="create-species"
+          name="species"
+          value={formData.species}
+          onChange={handleChange}
+          required
+          aria-required="true"
+        />
 
-        <label>
-          Date Found:
-          <input
-            type="date"
-            name="date_found"
-            value={formData.date_found}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <label htmlFor="create-date">Date Found:</label>
+        <input
+          id="create-date"
+          type="date"
+          name="date_found"
+          value={formData.date_found}
+          onChange={handleChange}
+          required
+          aria-required="true"
+        />
 
-        <label>
-          Description:
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </label>
+        <label htmlFor="create-description">Description:</label>
+        <textarea
+          id="create-description"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+        />
 
         <div className="two-col">
-          <label>
-            Latitude (optional):
-            <input
-              name="latitude"
-              type="number"
-              step="any"
-              value={formData.latitude}
-              onChange={handleChange}
-              placeholder="Click map or use My Location"
-            />
-          </label>
-          <label>
-            Longitude (optional):
-            <input
-              name="longitude"
-              type="number"
-              step="any"
-              value={formData.longitude}
-              onChange={handleChange}
-              placeholder="Click map or use My Location"
-            />
-          </label>
+          <label htmlFor="create-latitude">Latitude (optional):</label>
+          <input
+            id="create-latitude"
+            name="latitude"
+            type="number"
+            step="any"
+            value={formData.latitude}
+            onChange={handleChange}
+            placeholder="Click map or use My Location"
+          />
+          <label htmlFor="create-longitude">Longitude (optional):</label>
+          <input
+            id="create-longitude"
+            name="longitude"
+            type="number"
+            step="any"
+            value={formData.longitude}
+            onChange={handleChange}
+            placeholder="Click map or use My Location"
+          />
         </div>
 
         <div className="helper">
-          <button type="button" onClick={useMyLocation}>
+          <button
+            type="button"
+            className="btn btn--secondary"
+            onClick={useMyLocation}
+            aria-label="Use my current location"
+          >
             Use my location
           </button>
         </div>
 
-        <div ref={mapContainerRef} className="mini-map" />
+        <div
+          ref={mapContainerRef}
+          className="mini-map"
+          aria-label="Map to set coordinates"
+          tabIndex={0}
+          role="region"
+        />
 
-        <label>
-          Location label (optional):
-          <input
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="e.g. Eugene, OR trailhead"
-          />
-        </label>
+        <label htmlFor="create-location">Location label (optional):</label>
+        <input
+          id="create-location"
+          name="location"
+          value={formData.location}
+          onChange={handleChange}
+          placeholder="e.g. Eugene, OR trailhead"
+        />
 
-        <label>
-          Photo (optional):
-          <input
-            type="file"
-            name="photo"
-            accept="image/*"
-            onChange={handleFile}
-          />
-        </label>
+        <label htmlFor="create-photo">Photo (optional):</label>
+        <input
+          id="create-photo"
+          type="file"
+          name="photo"
+          accept="image/*"
+          onChange={handleFile}
+        />
         <div className="checkbox-row">
-          <label>
+          <label htmlFor="create-hide-location">
             <input
+              id="create-hide-location"
               type="checkbox"
               name="hide_location"
               checked={formData.hide_location}
@@ -253,8 +267,18 @@ export default function CreateFind() {
             Keep location secret
           </label>
         </div>
-        <button disabled={loading}>Create Find</button>
-        {error && <output className="error">{error}</output>}
+        <button
+          className="btn btn--primary"
+          disabled={loading}
+          aria-busy={loading}
+        >
+          Create Find
+        </button>
+        {error && (
+          <output className="error" aria-live="assertive" role="alert">
+            {error}
+          </output>
+        )}
       </form>
     </div>
   );

@@ -41,9 +41,16 @@ export default function UserPublicFinds() {
   };
 
   return (
-    <section className="finds container forest-rays">
+    <section
+      className="finds container forest-rays"
+      role="main"
+      aria-labelledby="user-finds-title"
+    >
       <div className="header-row">
-        <h1 className="header-title">{`${username}'s Finds`}</h1>
+        <h1
+          className="header-title"
+          id="user-finds-title"
+        >{`${username}'s Finds`}</h1>
         {myBadge &&
           (() => {
             const m = badgeMeta(myBadge);
@@ -58,15 +65,24 @@ export default function UserPublicFinds() {
           })()}
       </div>
 
-      {loading && <p>Loading...</p>}
-      {error && <p className="error">{error}</p>}
+      {loading && <p aria-live="polite">Loading...</p>}
+      {error && (
+        <output className="error" aria-live="assertive" role="alert">
+          {error}
+        </output>
+      )}
       {!finds?.length && <p>No finds yet.</p>}
 
       <div className="finds-list">
         {finds?.map((find) => (
-          <article key={find.id} className="find-card">
+          <article
+            key={find.id}
+            className="find-card"
+            tabIndex={0}
+            aria-labelledby={`find-title-${find.id}`}
+          >
             <section className="corner-sticker corner-sticker--gnome">
-              <h2>{find.species}</h2>
+              <h2 id={`find-title-${find.id}`}>{find.species}</h2>
 
               <p>
                 <strong>Date:</strong> {find.date_found}
