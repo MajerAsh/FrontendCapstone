@@ -6,8 +6,8 @@ import { useApi } from "../api/ApiContext";
  * Renders a small safety badge + expandable fact sheet
  * for the given species name.
  *
- * Uses your backend endpoint: GET /mushrooms/facts?q=<name>
- * (which normalizes synonyms and returns SPECIES_META + optional enrichment)
+ * Uses backend endpoint: GET /mushrooms/facts?q=<name>
+ * (which normalizes synonyms and returns SPECIES_META)
  */
 export default function SpeciesFacts({ name }) {
   const { request } = useApi();
@@ -43,7 +43,7 @@ export default function SpeciesFacts({ name }) {
   if (!name || !name.trim()) return null;
 
   return (
-    <div className="sf">
+    <div className="sf" role="region" aria-label="Mushroom safety facts">
       <span
         className={
           facts?.deadly
@@ -52,6 +52,18 @@ export default function SpeciesFacts({ name }) {
             ? "badge badge--edible"
             : "badge badge--unknown"
         }
+        aria-live={loading ? "polite" : undefined}
+        role="status"
+        aria-label={
+          loading
+            ? "Checking safety status"
+            : facts?.deadly
+            ? "Deadly species"
+            : facts?.edible
+            ? "Edible species"
+            : "Unknown edibility"
+        }
+        tabIndex={0}
       >
         {loading
           ? "Checking..."
@@ -62,10 +74,14 @@ export default function SpeciesFacts({ name }) {
           : "UNKNOWN"}
       </span>
 
-      {err && <div className="error">{err}</div>}
+      {err && (
+        <output className="error" aria-live="assertive" role="alert">
+          {err}
+        </output>
+      )}
 
       {facts && (
-        <div className="factsheet">
+        <div className="factsheet" tabIndex={0} aria-label="Detailed factsheet">
           <dl>
             <dt>Scientific</dt>
             <dd>{facts.scientific_name}</dd>

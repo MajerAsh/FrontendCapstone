@@ -26,27 +26,44 @@ export default function FindForagers() {
   }, [input]);
 
   return (
-    <section className="foragers container">
+    <section
+      className="foragers container"
+      role="main"
+      aria-labelledby="foragers-title"
+    >
       <section className="corner-sticker corner-sticker--gnome">
-        <label>
-          Search by username:
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="e.g. mushroom_mary"
-          />
-        </label>
+        <h1 id="foragers-title" className="sr-only">
+          Find Foragers
+        </h1>
+        <label htmlFor="forager-search">Search by username:</label>
+        <input
+          id="forager-search"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="e.g. mushroom_mary"
+          aria-label="Search by username"
+        />
 
-        {loading && <p>Loading...</p>}
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {loading && <p aria-live="polite">Loading...</p>}
+        {error && (
+          <output className="error" aria-live="assertive" role="alert">
+            {error}
+          </output>
+        )}
 
         <ul>
           {(users ?? []).map((u) => (
             <li key={u.id}>
-              <Link to={`/user/${u.username}/finds`}>{u.username}</Link>
+              <Link
+                to={`/user/${u.username}/finds`}
+                className="btn btn--link"
+                aria-label={`View finds for ${u.username}`}
+              >
+                {u.username}
+              </Link>
               <BadgePill badge={u.badge} />
               {u.city || u.state
-                ? ` — ${[u.city, u.state].filter(Boolean).join(", ")}`
+                ? ` \u2014 ${[u.city, u.state].filter(Boolean).join(", ")}`
                 : ""}
             </li>
           ))}

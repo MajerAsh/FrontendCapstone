@@ -150,90 +150,98 @@ export default function EditFind() {
 
   return (
     <div className="form-screen">
-      <div className="form-card">
-        <h1 className="form-title">Edit Find</h1>
-        {loading && <p>Loading…</p>}
-        {error && <p className="error">{error}</p>}
+      <div className="form-card" role="main" aria-labelledby="edit-find-title">
+        <h1 className="form-title" id="edit-find-title">
+          Edit Find
+        </h1>
+        {loading && <p aria-live="polite">Loading…</p>}
+        {error && (
+          <output className="error" aria-live="assertive" role="alert">
+            {error}
+          </output>
+        )}
         {!loading && !find && <p>Not found.</p>}
 
-        <form onSubmit={handleSubmit}>
-          <label>
-            Species:
-            <input
-              name="species"
-              value={formData.species}
-              onChange={handleChange}
-              required
-            />
-          </label>
+        <form onSubmit={handleSubmit} aria-label="Edit mushroom find">
+          <label htmlFor="edit-species">Species:</label>
+          <input
+            id="edit-species"
+            name="species"
+            value={formData.species}
+            onChange={handleChange}
+            required
+            aria-required="true"
+          />
 
-          <label>
-            Date Found:
-            <input
-              type="date"
-              name="date_found"
-              value={formData.date_found}
-              onChange={handleChange}
-              required
-            />
-          </label>
+          <label htmlFor="edit-date">Date Found:</label>
+          <input
+            id="edit-date"
+            type="date"
+            name="date_found"
+            value={formData.date_found}
+            onChange={handleChange}
+            required
+            aria-required="true"
+          />
 
-          <label>
-            Description:
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </label>
+          <label htmlFor="edit-description">Description:</label>
+          <textarea
+            id="edit-description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+          />
 
           <div className="two-col">
-            <label>
-              Latitude:
-              <input
-                name="latitude"
-                type="number"
-                step="any"
-                value={formData.latitude}
-                onChange={handleChange}
-                placeholder="Click map to set"
-              />
-            </label>
-            <label>
-              Longitude:
-              <input
-                name="longitude"
-                type="number"
-                step="any"
-                value={formData.longitude}
-                onChange={handleChange}
-                placeholder="Click map to set"
-              />
-            </label>
+            <label htmlFor="edit-latitude">Latitude:</label>
+            <input
+              id="edit-latitude"
+              name="latitude"
+              type="number"
+              step="any"
+              value={formData.latitude}
+              onChange={handleChange}
+              placeholder="Click map to set"
+            />
+            <label htmlFor="edit-longitude">Longitude:</label>
+            <input
+              id="edit-longitude"
+              name="longitude"
+              type="number"
+              step="any"
+              value={formData.longitude}
+              onChange={handleChange}
+              placeholder="Click map to set"
+            />
           </div>
 
-          <div ref={mapContainerRef} className="mini-map" />
+          <div
+            ref={mapContainerRef}
+            className="mini-map"
+            aria-label="Map to set coordinates"
+            tabIndex={0}
+            role="region"
+          />
 
-          <label>
-            Location label (optional):
-            <input
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-            />
-          </label>
+          <label htmlFor="edit-location">Location label (optional):</label>
+          <input
+            id="edit-location"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+          />
 
-          <label>
-            Replace photo (optional):
+          <label htmlFor="edit-photo">Replace photo (optional):</label>
+          <input
+            id="edit-photo"
+            type="file"
+            name="photo"
+            accept="image/*"
+            onChange={handleFile}
+          />
+          <label className="checkbox-row" htmlFor="edit-hide-location">
             <input
-              type="file"
-              name="photo"
-              accept="image/*"
-              onChange={handleFile}
-            />
-          </label>
-          <label className="checkbox-row">
-            <input
+              id="edit-hide-location"
               type="checkbox"
               name="hide_location"
               checked={formData.hide_location}
@@ -241,8 +249,18 @@ export default function EditFind() {
             />
             Keep location secret
           </label>
-          <button disabled={saving}>Save Changes</button>
-          {saveError && <output className="error">{saveError}</output>}
+          <button
+            className="btn btn--primary"
+            disabled={saving}
+            aria-busy={saving}
+          >
+            Save Changes
+          </button>
+          {saveError && (
+            <output className="error" aria-live="assertive" role="alert">
+              {saveError}
+            </output>
+          )}
         </form>
       </div>
     </div>

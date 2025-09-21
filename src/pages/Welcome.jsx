@@ -143,6 +143,7 @@ export default function Welcome() {
             left: [12, 0],
             right: [-12, 0],
           },
+          closeButton: false,
         }).setHTML(popupContent);
 
         //v custom map marker v
@@ -167,55 +168,78 @@ export default function Welcome() {
   }, [finds, speciesFilter, fromDate, toDate, token]);
 
   return (
-    <section className="welcome container forest-rays  corner-sticker corner-sticker--gnome">
-      <h1>Welcome to Myco Map</h1>
+    <section
+      className="welcome container forest-rays corner-sticker corner-sticker--gnome"
+      role="main"
+      aria-labelledby="welcome-title"
+    >
+      <h1 id="welcome-title">Welcome to Myco Map</h1>
 
       {/* Filters */}
-      <div className="grid">
-        <label className="filter">
+
+      <form
+        className="grid"
+        aria-label="Filter mushroom finds"
+        onSubmit={(e) => e.preventDefault()}
+        role="search"
+      >
+        <label className="filter" htmlFor="species-filter">
           Species (text):
-          <input
-            value={speciesFilter}
-            onChange={(e) => setSpeciesFilter(e.target.value)}
-            placeholder="e.g. chanterelle"
-          />
         </label>
+        <input
+          id="species-filter"
+          value={speciesFilter}
+          onChange={(e) => setSpeciesFilter(e.target.value)}
+          placeholder="e.g. chanterelle"
+          aria-label="Species filter"
+        />
 
-        <div className="grid grid-sm-2">
-          <label className="filter">
+        <div className="filter-group">
+          <label className="filter" htmlFor="from-date">
             From date:
-            <input
-              type="date"
-              value={fromDate}
-              onChange={(e) => setFromDate(e.target.value)}
-            />
           </label>
-
-          <label className="filter">
+          <input
+            id="from-date"
+            type="date"
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
+            aria-label="From date"
+          />
+          <label className="filter" htmlFor="to-date">
             To date:
-            <input
-              type="date"
-              value={toDate}
-              onChange={(e) => setToDate(e.target.value)}
-            />
           </label>
+          <input
+            id="to-date"
+            type="date"
+            value={toDate}
+            onChange={(e) => setToDate(e.target.value)}
+            aria-label="To date"
+          />
         </div>
 
         <div>
           <button
             type="button"
+            className="btn btn--secondary"
             onClick={() => {
               setSpeciesFilter("");
               setFromDate("");
               setToDate("");
             }}
+            aria-label="Clear all filters"
           >
             Clear
           </button>
         </div>
-      </div>
+      </form>
 
-      <div ref={mapContainer} className="map-wrap" />
+      <div
+        ref={mapContainer}
+        className="map-wrap"
+        aria-label="Map of mushroom finds"
+        tabIndex={0}
+        role="region"
+      />
     </section>
   );
 }

@@ -65,7 +65,7 @@ footer {
 .mapboxgl-popup-content {
   overflow: auto;
   margin-top: 2rem;
-  max-width: 220px;
+  max-width: 245px;
   margin-bottom: 0.2rem;
   color: #0e2e0a;
   background: #e2d9ca;
@@ -98,7 +98,7 @@ footer {
 
 h3 {
   margin: 0px;
-  margin-top: 0.9rem;
+  margin-top: none;
   margin-bottom: none !important;
   font-size: 25px;
   font-weight: 900;
@@ -142,43 +142,107 @@ h3 {
   box-shadow: var(--shadow);
 }
 
-/* Buttons */
-.button,
-button {
+/* Standardized button classes for accessibility and consistency */
+.btn,
+button,
+.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
+  padding: 6px 18px;
   border-radius: 999px;
   appearance: none;
-  border: 0;
+  border: none;
   font-size: 0.95rem;
-  line-height: 1;
-  padding: 10px 16px;
   font-weight: 700;
   background: linear-gradient(180deg, var(--accent), #ffb300);
   color: #2b1d00;
   box-shadow: 0 4px 0 #cc9a00, 0 10px 20px rgba(0, 0, 0, 0.3);
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  transition: transform 0.08s, box-shadow 0.08s, background 0.12s;
   text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  min-width: 32px;
+  min-height: 32px;
 }
-
-.button:hover,
-button:hover {
+.btn:focus,
+button:focus,
+.button:focus {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px var(--accent-3);
+}
+.btn:hover,
+button:hover,
+.button:hover {
   transform: translateY(-2px);
+  filter: brightness(1.08);
 }
-.button:active,
-button:active {
+.btn:active,
+button:active,
+.button:active {
   transform: translateY(2px);
   box-shadow: 0 2px 0 #cc9a00;
 }
 
-/* Danger variant for Delete */
-.button--danger {
+/* Primary button */
+.btn--primary {
+  background: linear-gradient(180deg, var(--accent), #ffb300);
+  color: #2b1d00;
+}
+.btn--primary:focus {
+  outline: 2px solid var(--accent-2);
+}
+
+/* Secondary button */
+.btn--secondary {
+  background: linear-gradient(180deg, #6ad6ff, #1e90ff);
+  color: #0a2a14;
+  box-shadow: 0 4px 0 #1e90ff, 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.btn--secondary:focus {
+  outline: 2px solid #1e90ff;
+}
+
+/* Danger button */
+.btn--danger {
   background: linear-gradient(180deg, #ff5a7a, #d8193a);
   color: #fff;
   box-shadow: 0 4px 0 #9e1228, 0 10px 20px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.15);
+}
+.btn--danger:focus {
+  outline: 2px solid #ff3657;
+}
+
+/* Link-style button */
+.btn--link {
+  background: none;
+  color: var(--accent-3);
+  box-shadow: none;
+  padding: 0 4px;
+  min-width: 0;
+  min-height: 0;
+  font-weight: 800;
+  text-decoration: underline;
+}
+.btn--link:hover {
+  color: #fff;
+  background: var(--accent-3);
+  text-decoration: none;
+}
+.btn--link:focus {
+  outline: 2px solid var(--accent-3);
+}
+
+/* Disabled state */
+.btn[disabled],
+button[disabled],
+.button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.2);
+  box-shadow: none;
 }
 
 /* Forms */

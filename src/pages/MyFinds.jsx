@@ -49,9 +49,15 @@ export default function MyFinds() {
   }
 
   return (
-    <section className="finds container forest-rays">
+    <section
+      className="finds container forest-rays"
+      role="main"
+      aria-labelledby="my-finds-title"
+    >
       <div className="header-row">
-        <h1 className="header-title">My Mushroom Finds</h1>
+        <h1 className="header-title" id="my-finds-title">
+          My Mushroom Finds
+        </h1>
         {myBadge &&
           (() => {
             const m = badgeMeta(myBadge);
@@ -66,8 +72,12 @@ export default function MyFinds() {
           })()}
       </div>
 
-      {loading && <p>Loading...</p>}
-      {error && <p className="error">{error}</p>}
+      {loading && <p aria-live="polite">Loading...</p>}
+      {error && (
+        <output className="error" aria-live="assertive" role="alert">
+          {error}
+        </output>
+      )}
 
       <div className="finds-list">
         {finds?.length === 0 && <p>No finds yet. Go create one!</p>}
@@ -76,8 +86,10 @@ export default function MyFinds() {
           <article
             key={find.id}
             className="find-card corner-sticker corner-sticker--mushroom"
+            tabIndex={0}
+            aria-labelledby={`find-title-${find.id}`}
           >
-            <h2>{find.species}</h2>
+            <h2 id={`find-title-${find.id}`}>{find.species}</h2>
 
             <p>
               <strong>Date:</strong> {find.date_found}
@@ -129,8 +141,20 @@ export default function MyFinds() {
             <SpeciesFacts name={find.species} />
 
             <div className="actions">
-              <button onClick={() => handleDelete(find.id)}>Delete</button>
-              <Link to={`/edit/${find.id}`} className="button">
+              <button
+                onClick={() => handleDelete(find.id)}
+                className="btn btn--danger actions__btn"
+                aria-label={`Delete find for ${find.species}`}
+                type="button"
+              >
+                Delete
+              </button>
+              <Link
+                to={`/edit/${find.id}`}
+                className="btn btn--primary actions__btn"
+                aria-label={`Edit find for ${find.species}`}
+                tabIndex={0}
+              >
                 Edit
               </Link>
             </div>
