@@ -80,8 +80,8 @@ export default function Register() {
             <output
               id="register-error"
               className="error"
-              aria-live="assertive"
               role="alert"
+              style={{ display: "block", marginTop: "1.5rem" }}
             >
               {error}
             </output>

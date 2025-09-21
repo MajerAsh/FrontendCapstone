@@ -63,7 +63,11 @@ export default function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
           {error && (
-            <output className="error" role="alert">
+            <output
+              className="error"
+              role="alert"
+              style={{ display: "block", marginTop: "1.5rem" }}
+            >
               {error}
             </output>
           )}
