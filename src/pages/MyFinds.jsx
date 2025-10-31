@@ -108,6 +108,12 @@ export default function MyFinds() {
                   }
                   alt={`${find.species ?? "Mushroom"} photo`}
                   loading="lazy"
+                  onError={(e) => {
+                    // avoid infinite loop if placeholder missing
+                    e.currentTarget.onerror = null;
+                    // fallback image served from public/; change to /imgunavailable.png if you add that asset
+                    e.currentTarget.src = "/svgs/mushroom.png";
+                  }}
                 />
               </div>
             )}
