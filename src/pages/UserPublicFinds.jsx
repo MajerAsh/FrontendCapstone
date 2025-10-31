@@ -103,7 +103,7 @@ export default function UserPublicFinds() {
                     loading="lazy"
                     onError={(e) => {
                       e.currentTarget.onerror = null; // prevent loop
-                      e.currentTarget.src = "/svgs/sadmushroom.png"; // fallback; replace with /imgunavailable.png if you add that file
+                      e.currentTarget.src = "/svgs/sadmushroom.png"; // fallback;
                     }}
                   />
                 </div>

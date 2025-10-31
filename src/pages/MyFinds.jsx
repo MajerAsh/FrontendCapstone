@@ -111,7 +111,7 @@ export default function MyFinds() {
                   onError={(e) => {
                     // avoid infinite loop if placeholder missing
                     e.currentTarget.onerror = null;
-                    // fallback image served from public/; change to /imgunavailable.png if you add that asset
+                    // use sad mushroom placeholder from public/svgs
                     e.currentTarget.src = "/svgs/sadmushroom.png";
                   }}
                 />
