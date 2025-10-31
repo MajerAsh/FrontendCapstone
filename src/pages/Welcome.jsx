@@ -104,6 +104,7 @@ export default function Welcome() {
         alt="${(find.species ?? "Mushroom").replace(/"/g, "&quot;")} photo"
         loading="lazy"
         referrerpolicy="no-referrer"
+        onerror="this.onerror=null;this.src='/svgs/sadmushroom.png'"
      />`
           : "";
         const popupContent = `

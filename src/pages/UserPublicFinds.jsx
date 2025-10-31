@@ -101,6 +101,10 @@ export default function UserPublicFinds() {
                     }
                     alt={`${find.species ?? "Mushroom"} photo`}
                     loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null; // prevent loop
+                      e.currentTarget.src = "/svgs/sadmushroom.png"; // fallback;
+                    }}
                   />
                 </div>
               )}
