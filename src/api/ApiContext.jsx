@@ -37,7 +37,7 @@ export function ApiProvider({ children }) {
       headers,
     });
 
-    //Checks if the response (content type) contains "json":
+    //Checks if the response contains "json":
     const isJson = /json/.test(response.headers.get("Content-Type") || "");
     //parse accordingly
     const result = isJson ? await response.json() : await response.text();
