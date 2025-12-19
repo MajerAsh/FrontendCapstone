@@ -4,7 +4,7 @@ handles tags to refresh appropriate queries after a mutation*/
 
 import { createContext, useContext, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
-// Base API URL (vite env stuff)
+// Base API URL (vite env)
 export const API = import.meta.env.VITE_API_URL;
 
 //creates context for the api helpers: request, tag caching
@@ -37,7 +37,7 @@ export function ApiProvider({ children }) {
       headers,
     });
 
-    //Checks if the response (content type) contains "json":
+    //Checks if the response contains "json":
     const isJson = /json/.test(response.headers.get("Content-Type") || "");
     //parse accordingly
     const result = isJson ? await response.json() : await response.text();
