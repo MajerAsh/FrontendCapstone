@@ -17,7 +17,7 @@ export default function useMutation(method, resource, tagsToInvalidate) {
     setError(null);
 
     try {
-      //shecks if we're sending FormData (skip JSON stringify + headers)
+      //checks if we're sending FormData (skip JSON stringify + headers)
       const isFormData = body instanceof FormData;
       //fetch options: always include method, include body if provided
       const options = {
