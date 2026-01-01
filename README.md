@@ -1,123 +1,101 @@
-# MycoMap — Frontend (FrontendCapstone)
+# MycoMap Frontend
 
-React + Vite frontend for MycoMap: map-based UI to browse, create, and manage mushroom finds. Uses Mapbox for mapping, fetches the backend API, and supports image uploads for finds.
-
-Included screenshots
-
-- `public/MycoHome.png` — Home / Map view
-- `public/MyFinds.png` — My Finds (user) page
-- `public/CreateFind.png` — Create Find page
-
-You can place the screenshots in `FrontendCapstone/public/` and they will render on GitHub and in the project docs. Example:
-
-```markdown
-![Home screenshot](./public/MycoHome.png)
-![My Finds screenshot](./public/MyFinds.png)
-![Create Find screenshot](./public/CreateFind.png)
-```
-
-## Quick demo features
-
-- Map view of public finds (Mapbox)
-- Marker popups show a thumbnail image, species and metadata
-- Create/Edit finds with photo upload
-- User authentication (login/register)
-- Graceful fallback for broken images (sadmushroom placeholder)
-
-## Prerequisites
-
-- Node.js (>= 18 recommended)
-- npm
-- A running backend API (see `BackendCapstone/`) or set `VITE_API_URL` to the deployed backend
-- Mapbox token (`VITE_MAPBOX_TOKEN`) for the map
-
-## Environment
-
-Create a `.env` file at the project root (`FrontendCapstone/.env`) with:
-
-```
-VITE_API_URL=http://localhost:3000
-VITE_MAPBOX_TOKEN=your_mapbox_token_here
-```
-
-Note: Vite exposes only variables prefixed with `VITE_` to the client.
-
-## Install and run
-
-From `FrontendCapstone/`:
-
-```bash
-npm install
-npm run dev      # starts Vite dev server
-# npm run build  # build for production
-```
-
-Open the dev server (usually `http://localhost:5173/`). The app expects the backend API (auth, finds endpoints) to be reachable via `VITE_API_URL`.
-
-## Image fallback behavior
-
-- The UI includes `onError` fallbacks for find images and the Mapbox popup image. When an image fails to load the app replaces it with `/svgs/sadmushroom.png` (already present in `public/svgs/`).
-- If you'd prefer to use different placeholder artwork, drop your image in `public/` (for example `public/imgunavailable.png`) and update the fallback src in the source (two pages and the Mapbox popup):
-
-  - `src/pages/MyFinds.jsx`
-  - `src/pages/UserPublicFinds.jsx`
-  - `src/pages/Welcome.jsx` (popup HTML)
-
-## Mapbox & popups
-
-- The map is in `src/pages/Welcome.jsx`. Markers are created with custom DOM elements and popups are generated with `setHTML()`; inline `onerror` attributes are used in popup HTML to handle image fallback.
-
-## Build & deploy notes
-
-- For production deploy, set `VITE_API_URL` to your deployed backend URL and `VITE_MAPBOX_TOKEN` to a production Mapbox token.
-- If the backend uses S3 for images, ensure `S3_PUBLIC_BASE` is set on the backend so image URLs include the full host.
-
-## Troubleshooting
-
-- If images show as broken while the bucket contains objects, verify `S3_PUBLIC_BASE` is configured on the backend and that `image_url` in the `finds` record points to the expected S3 URL.
-- To check CORS issues with images served from S3, run a curl HEAD with an `Origin` header, e.g.:
-
-  ```bash
-  curl -I -H "Origin: http://localhost:5173" "https://mycomap-uploads.s3.us-east-2.amazonaws.com/your-object-key"
-  ```
-
-## Contributing
-
-Pull requests welcome. Keep front-end changes small and add tests where appropriate.
+Web interface for MycoMap, a mushroom foraging and logging application.  
+The frontend provides an interactive map, user authentication, and tools for managing personal finds.
 
 ---
 
-Created for the Frontend Capstone project.
+## Overview
 
-**[Frontend Repository](https://github.com/MajerAsh/FrontendCapstone)**
+The MycoMap frontend allows users to:
 
-MycoMap FrontendCapstone
+- Explore public mushroom finds on an interactive map
+- Register and log in with secure authentication
+- Create, edit, and delete their own finds
+- Upload photos and optionally hide sensitive location data
+- Browse other users and view their public logs
 
-This is the frontend repository for MycoMap, a full-stack mushroom foraging platform built with React. Users can register, log in, log mushroom finds, and explore foraged mushrooms on an interactive world map.
-The backend API lives in the BackendCapstone repository.
+The application communicates with the MycoMap backend API.
 
-------- Features:
+---
 
-- Public map of mushroom finds using Mapbox GL JS.
+## Tech Stack
 
-- Filters for species and geographic region.
+- React
+- React Router
+- Context API
+- Mapbox GL JS
+- Vite
+- CSS (Flexbox & Grid)
 
-- Authenticated users can:
-  Register / Log in with JWT.
-  Create mushroom finds with image and location.
-  Edit or delete their finds.
-  Search for foragers and view their public logs.
+---
 
--------Technologies:
+## Application Structure
 
--React (v19)
+api/ API helpers and hooks
+auth/ Authentication context and pages
+components/ Reusable UI components
+layout/ Layout and navigation
+pages/ Route-based pages
+styles/ CSS stylesheets
 
--React Router
+---
 
--Context API
+## Mapping & Visualization
 
--Mapbox GL JS
+- Public finds are displayed using Mapbox GL JS
+- Custom markers and popups show species, images, and metadata
+- Filters allow narrowing results by species and date
+- Popups gracefully handle missing or broken images
 
--Vite (development server & bundler)
+---
 
--CSS (Flexbox & Grid)
+## Authentication Flow
+
+- Users register and log in through the backend API
+- JWTs are stored in session storage
+- Auth state is shared across the app using React Context
+- Protected actions require an authenticated session
+
+---
+
+## Image Handling
+
+- Find images are uploaded through the backend
+- Public images are served via S3 or backend-hosted URLs
+- Broken or missing images fall back to a placeholder asset
+
+---
+
+## Environment Configuration
+
+Create a `.env` file with:
+
+VITE*API_URL=http://localhost:3000
+VITE_MAPBOX_TOKEN=your_mapbox_token
+Only variables prefixed with `VITE*` are exposed to the client.
+
+---
+
+## Running Locally
+
+```bash
+npm install
+npm run dev
+The app will start on the Vite development server (typically http://localhost:5173).
+
+Build & Deployment
+bash
+Copy code
+npm run build
+Set VITE_API_URL to the deployed backend URL for production builds.
+
+Accessibility & UX
+Semantic HTML and ARIA attributes are used throughout
+
+Keyboard navigation is supported
+
+Loading and error states are surfaced to users
+
+Forms provide validation feedback
+```
