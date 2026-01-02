@@ -11,20 +11,12 @@ export function ApiProvider({ children }) {
   //gets current user's auth token from AuthContext
   const { token } = useAuth();
 
-  /*request helper: const request...
- params:
-  resource - the endpoint path ("/users")
-  options object (method, body...)
-  isFormData - true if sending FormData (skip JSON headers)
-  */
+  /* Generic API request helper
+   */
   const request = async (resource, options = {}, isFormData = false) => {
-    //make headers:
     const headers = {
-      //adds auth header if logged in
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      //adds json "Content-Type" if its not FormData
       ...(!isFormData ? { "Content-Type": "application/json" } : {}),
-      //merge the custom headers from options:
       ...(options.headers || {}),
     };
 
