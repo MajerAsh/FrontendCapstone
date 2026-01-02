@@ -1,12 +1,12 @@
 import { Link } from "react-router";
 import useQuery from "../api/useQuery";
-import useMutation from "../api/useMutation"; //hook to cr8 DELETE req
+import useMutation from "../api/useMutation"; //hook to create DELETE req
 import SpeciesFacts from "../components/SpeciesFacts";
 
 import "../styles/theme.css";
 import "../styles/finds.css";
 
-//// "my-finds" is used as an invalidation tag after create/edit/delete
+// "my-finds" is used as an invalidation tag after create/edit/delete
 export default function MyFinds() {
   const { data: finds, loading, error } = useQuery("/finds/me", "my-finds");
   const { mutate: deleteFind } = useMutation("DELETE", null, ["my-finds"]);
@@ -43,8 +43,7 @@ export default function MyFinds() {
       "Are you sure you want to delete this find?"
     );
     if (!confirm) return;
-    await deleteFind(null, `/finds/${findId}`); //hoping useMutation will accept an override URL as a argument 🤞
-  }
+    await deleteFind(null, `/finds/${findId}`); // Override path to target a specific find
 
   return (
     <section
