@@ -44,6 +44,7 @@ export default function MyFinds() {
     );
     if (!confirm) return;
     await deleteFind(null, `/finds/${findId}`); // Override path to target a specific find
+  }
 
   return (
     <section
@@ -108,7 +109,6 @@ export default function MyFinds() {
                   onError={(e) => {
                     // avoid infinite loop if placeholder missing
                     e.currentTarget.onerror = null;
-                    // use sad mushroom placeholder from public/svgs
                     e.currentTarget.src = "/svgs/sadmushroom.png";
                   }}
                 />
