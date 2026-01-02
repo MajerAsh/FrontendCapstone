@@ -1,17 +1,15 @@
 import { Link } from "react-router";
-import useQuery from "../api/useQuery"; //hook to fetch data from backend
+import useQuery from "../api/useQuery"; 
 import useMutation from "../api/useMutation"; //hook to cr8 DELETE req
 import SpeciesFacts from "../components/SpeciesFacts";
 
 import "../styles/theme.css";
 import "../styles/finds.css";
 
-//vv fetches current user's finds from /finds/me, alias as "my-finds" for caching
+//// "my-finds" is used as an invalidation tag after create/edit/delete
 export default function MyFinds() {
   const { data: finds, loading, error } = useQuery("/finds/me", "my-finds");
-  //v sets up mutation to delete a find, invalidates "my-finds" after run
   const { mutate: deleteFind } = useMutation("DELETE", null, ["my-finds"]);
-  //gamebadge
   const myBadge = finds?.[0]?.badge ?? null;
 
   const badgeMeta = (label) => {
@@ -45,8 +43,7 @@ export default function MyFinds() {
       "Are you sure you want to delete this find?"
     );
     if (!confirm) return;
-    await deleteFind(null, `/finds/${findId}`); //hoping useMutation will accept an override URL as a argument 🤞
-  }
+    await deleteFind(null, `/finds/${findId}`); 
 
   return (
     <section
