@@ -1,13 +1,10 @@
-/* eslint-disable react-refresh/only-export-components */
-/*ApiContext attaches the user's authentication token to API requests when possible + 
-handles tags to refresh appropriate queries after a mutation*/
+// API client with auth header support + simple tag invalidation
 
 import { createContext, useContext, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
-// Base API URL (vite env)
+
 export const API = import.meta.env.VITE_API_URL;
 
-//creates context for the api helpers: request, tag caching
 const ApiContext = createContext();
 
 export function ApiProvider({ children }) {
