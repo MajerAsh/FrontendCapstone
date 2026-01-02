@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useApi } from "./ApiContext";
 
-/** Queries the API and returns the data, loading status, and error message. */
+// Basic query hook with tag registration for invalidation
 export default function useQuery(resource, tag) {
   const { request, provideTag } = useApi();
 
@@ -27,7 +27,7 @@ export default function useQuery(resource, tag) {
   useEffect(() => {
     provideTag(tag, query);
     query();
-  }, [resource]); // FF added
+  }, [resource]);
 
   return { data, loading, error };
 }
