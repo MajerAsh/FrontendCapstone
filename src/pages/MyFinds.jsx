@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import useQuery from "../api/useQuery"; 
+import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation"; //hook to cr8 DELETE req
 import SpeciesFacts from "../components/SpeciesFacts";
 
@@ -43,7 +43,8 @@ export default function MyFinds() {
       "Are you sure you want to delete this find?"
     );
     if (!confirm) return;
-    await deleteFind(null, `/finds/${findId}`); 
+    await deleteFind(null, `/finds/${findId}`); //hoping useMutation will accept an override URL as a argument 🤞
+  }
 
   return (
     <section
