@@ -47,12 +47,11 @@ export function ApiProvider({ children }) {
     list.forEach((tag) => tags[tag]?.());
   };
 
-  //context value: exposes the request helper + tag methods:
   const value = { request, provideTag, invalidateTags };
   return <ApiContext.Provider value={value}>{children}</ApiContext.Provider>;
 }
 
-//Hook to use the api helpers in components! must use w/in <ApiProvider>
+//Hook to use the api helpers in components, must use w/in <ApiProvider>
 export function useApi() {
   const context = useContext(ApiContext);
   if (!context) throw Error("useApi must be used within a ApiProvider");
