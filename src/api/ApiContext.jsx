@@ -11,8 +11,7 @@ export function ApiProvider({ children }) {
   //gets current user's auth token from AuthContext
   const { token } = useAuth();
 
-  /* Generic API request helper
-   */
+  // Generic API request helper
   const request = async (resource, options = {}, isFormData = false) => {
     const headers = {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -20,7 +19,6 @@ export function ApiProvider({ children }) {
       ...(options.headers || {}),
     };
 
-    //The fetch request:
     const response = await fetch(API + resource, {
       ...options,
       headers,
