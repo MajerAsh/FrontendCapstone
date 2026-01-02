@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useApi } from "./ApiContext";
 
-// mutate(body, overridePath?)
+// mutate(body, overridePath) -> boolean success
 
 export default function useMutation(method, resource, tagsToInvalidate) {
   const { request, invalidateTags } = useApi();
