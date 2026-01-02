@@ -24,27 +24,20 @@ export function ApiProvider({ children }) {
       headers,
     });
 
-    //Checks if the response contains "json":
     const isJson = /json/.test(response.headers.get("Content-Type") || "");
-    //parse accordingly
     const result = isJson ? await response.json() : await response.text();
-    //throw error if status code is not OK (fourhundredsmthn or fivehundredsomthin)
+
     if (!response.ok) throw Error(result);
-    return result; //the parsed data
+    return result;
   };
 
   //tag-based cache invalidation system:
   const [tags, setTags] = useState({});
 
-  /*Register a query function under a "tag":
-      params: tag - string key to identify the query
-              query - function to re-run when invalidating */
   const provideTag = (tag, query) => {
     setTags((prev) => ({ ...prev, [tag]: query }));
   };
 
-  /*invalidates one or more tags to trigger query refresh:
-      param: tagsToInvalidate - array of tag strings*/
   const invalidateTags = (tagsToInvalidate) => {
     const list = Array.isArray(tagsToInvalidate)
       ? tagsToInvalidate
