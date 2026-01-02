@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import useQuery from "../api/useQuery"; //hook to fetch data from backend
 import useMutation from "../api/useMutation"; //hook to cr8 DELETE req
 import SpeciesFacts from "../components/SpeciesFacts";
-//style:
+
 import "../styles/theme.css";
 import "../styles/finds.css";
 
