@@ -21,7 +21,7 @@ export default function Welcome() {
   const { data: finds } = useQuery("/finds", "all-finds");
   const { token } = useAuth();
 
-  // absolute image URL helper (unchanged)
+  // absolute image URL helper 
   const imgSrc = (pathOrUrl) => {
     if (!pathOrUrl) return null;
     return pathOrUrl.startsWith("http")
@@ -29,7 +29,7 @@ export default function Welcome() {
       : `${import.meta.env.VITE_API_URL}${pathOrUrl}`;
   };
 
-  // init map once
+  // initiate map once
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
