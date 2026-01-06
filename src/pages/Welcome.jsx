@@ -55,7 +55,7 @@ export default function Welcome() {
     return true;
   }
 
-  // add markers whenever finds or filters change (restored logic)
+  // add markers whenever finds or filters change
   useEffect(() => {
     if (!map.current || !finds) return;
 
@@ -147,7 +147,7 @@ export default function Welcome() {
           closeButton: false,
         }).setHTML(popupContent);
 
-        //v custom map marker v
+        // custom map marker
         const marker = new mapboxgl.Marker({
           element: makeMushroomEl(),
           anchor: "bottom",
