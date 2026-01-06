@@ -13,7 +13,7 @@ export default function Welcome() {
   const map = useRef(null);
   const markers = useRef([]);
 
-  // filters (restored)
+  // filters
   const [speciesFilter, setSpeciesFilter] = useState("");
   const [fromDate, setFromDate] = useState(""); // YYYY-MM-DD
   const [toDate, setToDate] = useState(""); // YYYY-MM-DD
