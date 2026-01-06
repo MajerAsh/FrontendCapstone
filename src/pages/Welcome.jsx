@@ -13,7 +13,7 @@ export default function Welcome() {
   const map = useRef(null);
   const markers = useRef([]);
 
-  // filters (restored)
+  // filters
   const [speciesFilter, setSpeciesFilter] = useState("");
   const [fromDate, setFromDate] = useState(""); // YYYY-MM-DD
   const [toDate, setToDate] = useState(""); // YYYY-MM-DD
@@ -21,7 +21,7 @@ export default function Welcome() {
   const { data: finds } = useQuery("/finds", "all-finds");
   const { token } = useAuth();
 
-  // absolute image URL helper (unchanged)
+  // absolute image URL helper 
   const imgSrc = (pathOrUrl) => {
     if (!pathOrUrl) return null;
     return pathOrUrl.startsWith("http")
@@ -29,7 +29,7 @@ export default function Welcome() {
       : `${import.meta.env.VITE_API_URL}${pathOrUrl}`;
   };
 
-  // init map once
+  // initiate map once
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
@@ -40,7 +40,7 @@ export default function Welcome() {
     });
   }, []);
 
-  // date helper (restored)
+  // date helper
   function isWithinDateRange(dateStr, from, to) {
     if (!dateStr) return false;
     const d = new Date(dateStr + "T00:00:00");
@@ -55,7 +55,7 @@ export default function Welcome() {
     return true;
   }
 
-  // add markers whenever finds or filters change (restored logic)
+  // add markers whenever finds or filters change
   useEffect(() => {
     if (!map.current || !finds) return;
 
@@ -147,7 +147,7 @@ export default function Welcome() {
           closeButton: false,
         }).setHTML(popupContent);
 
-        //v custom map marker v
+        // custom map marker
         const marker = new mapboxgl.Marker({
           element: makeMushroomEl(),
           anchor: "bottom",
