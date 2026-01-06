@@ -1,101 +1,94 @@
-# MycoMap Frontend
+# MycoMap Client (`mycomap-client`)
 
-Web interface for MycoMap, a mushroom foraging and logging application.  
-The frontend provides an interactive map, user authentication, and tools for managing personal finds.
+React + Vite front end for MycoMap: a community-driven mushroom foraging logging app.
 
----
+This UI focuses on quick field logging, privacy-friendly location sharing, and a map view that turns individual observations into a browsable dataset.
 
-## Overview
+## What it does
 
-The MycoMap frontend allows users to:
+- **Map of public finds** using Mapbox GL JS with marker popups.
+- **Filtering** by species text and date range.
+- **Auth** (register/login/logout) backed by the API; JWT token stored in `sessionStorage`.
+- **Personal log management**: create, edit, and delete your own finds.
+- **Photo uploads** and resilient image display (broken images fall back to a placeholder).
+- **Privacy option**: hide sensitive locations to protect habitats.
+- **Find foragers**: debounced username search and public user logs.
 
-- Explore public mushroom finds on an interactive map
-- Register and log in with secure authentication
-- Create, edit, and delete their own finds
-- Upload photos and optionally hide sensitive location data
-- Browse other users and view their public logs
+Pairs with the backend repo `mycomap-server` (REST API).
 
-The application communicates with the MycoMap backend API.
+## Tech stack
 
----
-
-## Tech Stack
-
-- React
+- React 19
 - React Router
-- Context API
-- Mapbox GL JS
 - Vite
-- CSS (Flexbox & Grid)
+- Mapbox GL JS
+- CSS (Grid/Flexbox)
 
----
+## Screenshots
 
-## Application Structure
+![Map](public/bg/MycoMap.png)
+![My Finds](public/bg/MyFinds.png)
+![Create Find](public/bg/CreateFind.png)
 
-api/ API helpers and hooks
-auth/ Authentication context and pages
-components/ Reusable UI components
-layout/ Layout and navigation
-pages/ Route-based pages
-styles/ CSS stylesheets
+## Local setup
 
----
+Prereqs:
 
-## Mapping & Visualization
+- Node.js `>= 22`
+- A Mapbox token
+- A running instance of `mycomap-server`
 
-- Public finds are displayed using Mapbox GL JS
-- Custom markers and popups show species, images, and metadata
-- Filters allow narrowing results by species and date
-- Popups gracefully handle missing or broken images
-
----
-
-## Authentication Flow
-
-- Users register and log in through the backend API
-- JWTs are stored in session storage
-- Auth state is shared across the app using React Context
-- Protected actions require an authenticated session
-
----
-
-## Image Handling
-
-- Find images are uploaded through the backend
-- Public images are served via S3 or backend-hosted URLs
-- Broken or missing images fall back to a placeholder asset
-
----
-
-## Environment Configuration
-
-Create a `.env` file with:
-
-VITE*API_URL=http://localhost:3000
-VITE_MAPBOX_TOKEN=your_mapbox_token
-Only variables prefixed with `VITE*` are exposed to the client.
-
----
-
-## Running Locally
+1. Install dependencies
 
 ```bash
 npm install
-npm run dev
-The app will start on the Vite development server (typically http://localhost:5173).
-
-Build & Deployment
-bash
-Copy code
-npm run build
-Set VITE_API_URL to the deployed backend URL for production builds.
-
-Accessibility & UX
-Semantic HTML and ARIA attributes are used throughout
-
-Keyboard navigation is supported
-
-Loading and error states are surfaced to users
-
-Forms provide validation feedback
 ```
+
+2. Create `.env`
+
+```bash
+VITE_API_URL=http://localhost:3000
+VITE_MAPBOX_TOKEN=your_mapbox_token
+```
+
+Note: Only variables prefixed with `VITE_` are exposed to the client.
+
+3. Start the dev server
+
+```bash
+npm run dev
+```
+
+Vite typically runs at `http://localhost:5173`.
+
+## Build
+
+```bash
+npm run build
+```
+
+For production, set `VITE_API_URL` to your deployed backend base URL.
+
+## Deployment notes
+
+- This is a client-side routed SPA. The repo includes `public/_redirects` so hosts like Netlify can route all paths to `index.html`.
+- Vite outputs a production build to `dist/`.
+- In your host’s environment settings, set `VITE_API_URL` and `VITE_MAPBOX_TOKEN` the same way you would locally.
+
+Netlify settings (typical):
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Environment variables: `VITE_API_URL`, `VITE_MAPBOX_TOKEN`
+
+## Implementation notes (high level)
+
+- The map page fetches public finds and renders markers; popups include images with a safe fallback.
+- Create Find supports manual coordinates, “use my location”, and a small map for picking/dragging a marker.
+- Image URLs can be absolute (S3) or relative paths served by the API; the client handles both.
+
+## Accessibility & UX
+
+- Semantic markup with ARIA labels on key flows (filters, forms, error output)
+- Keyboard-focusable map regions and cards
+- Loading and error states surfaced in the UI
