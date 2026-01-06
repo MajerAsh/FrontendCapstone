@@ -40,7 +40,7 @@ export default function Welcome() {
     });
   }, []);
 
-  // date helper (restored)
+  // date helper
   function isWithinDateRange(dateStr, from, to) {
     if (!dateStr) return false;
     const d = new Date(dateStr + "T00:00:00");
