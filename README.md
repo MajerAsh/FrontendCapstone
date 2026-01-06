@@ -1,6 +1,6 @@
 # MycoMap Client (`mycomap-client`)
 
-React + Vite frontend for MycoMap: a community-driven (citizen-science) mushroom find logging app.
+React + Vite front end for MycoMap: a community-driven mushroom foraging logging app.
 
 This UI focuses on quick field logging, privacy-friendly location sharing, and a map view that turns individual observations into a browsable dataset.
 
