@@ -1,5 +1,5 @@
 {
-  "name": "frontendcapstonemyco",
+  "name": "mycomap-client",
   "type": "module",
   "scripts": {
     "dev": "vite",
